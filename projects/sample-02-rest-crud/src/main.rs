@@ -1,9 +1,4 @@
-mod error;
-mod handlers;
-mod models;
-
-use axum::{response::Html, routing::get, Router};
-use handlers::{create_todo, delete_todo, get_todo, list_todos, update_todo, AppState};
+use sample_02_rest_crud::{create_app, handlers::AppState};
 use std::net::SocketAddr;
 use tokio::signal;
 use tracing::info;
@@ -21,17 +16,10 @@ async fn main() {
     // 2. 스레드 안전한 인메모리 상태 생성
     let state = AppState::new();
 
-    // 3. 라우터 설정 및 상태(State) 주입
-    let app = Router::new()
-        .route("/", get(root_handler))
-        .route("/api/todos", get(list_todos).post(create_todo))
-        .route(
-            "/api/todos/{id}",
-            get(get_todo).put(update_todo).delete(delete_todo),
-        )
-        .with_state(state);
+    // 3. 라우터 생성
+    let app = create_app(state);
 
-    // 4. 포트 3001 바인딩 (sample-01과의 포트 충돌 방지)
+    // 4. 포트 3001 바인딩
     let addr = SocketAddr::from(([127, 0, 0, 1], 3001));
     info!("🚀 [Sample 02] REST CRUD 서버 시작! http://{}", addr);
 
@@ -44,10 +32,6 @@ async fn main() {
         .with_graceful_shutdown(shutdown_signal())
         .await
         .expect("서버 비정상 종료");
-}
-
-async fn root_handler() -> Html<&'static str> {
-    Html("<h1>🦀 Sample 02: 견고한 RESTful CRUD API 서버</h1><p><code>/api/todos</code> 엔드포인트를 사용해 보세요!</p>")
 }
 
 async fn shutdown_signal() {

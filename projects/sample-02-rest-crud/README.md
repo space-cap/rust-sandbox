@@ -85,3 +85,19 @@ curl -X DELETE http://127.0.0.1:3001/api/todos/1
 ```
 **응답:** `204 No Content`
 
+---
+
+## ⚡ 초고속 자동화 통합 테스트 (cargo test)
+
+서버 포트를 열지 않고도 메모리 상에서 가상의 HTTP 요청을 전송해 전체 REST API의 동작을 0.01초 만에 검증합니다!
+
+```bash
+cargo test -p sample-02-rest-crud
+```
+
+### 테스트 항목 (`tests/api_tests.rs`)
+- `test_create_and_get_todo`: 신규 생성 및 단건 조회 검증
+- `test_empty_title_validation_fails`: 빈 제목 유효성 검증 실패(400 Bad Request) 확인
+- `test_get_not_found_todo`: 존재하지 않는 ID 조회 시 404 Not Found 확인
+- `test_update_and_delete_todo`: 상태 수정, 삭제(204 No Content), 삭제 후 재조회(404) 확인
+
