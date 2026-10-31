@@ -128,3 +128,4 @@ async fn get_todo(
 | `DELETE` | `/api/todos/{id}` | 특정 Todo 삭제 | `204 No Content` or `404 Not Found` |
 
 코드로 직접 구현해 보러 갑시다! 🏃‍♂️💨
+
