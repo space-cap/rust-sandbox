@@ -20,7 +20,7 @@
 
 ```mermaid
 flowchart TD
-    P1["Phase 1: 비동기 기초 & Hello Axum<br/>📦 sample-01-basic-api"] --> P2["Phase 2: REST CRUD & 상태 관리<br/>📦 sample-02-rest-crud"]
+    P1["Phase 1: 비동기 기초 & Hello Axum ✅<br/>📦 sample-01-basic-api"] --> P2["Phase 2: REST CRUD & 상태 관리<br/>📦 sample-02-rest-crud"]
     P2 --> P3["Phase 3: SQLx DB 연동 & 트랜잭션<br/>📦 sample-03-sqlx-database"]
     P3 --> P4["Phase 4: JWT 인증 & 보안 미들웨어<br/>📦 sample-04-auth-jwt"]
     P4 --> P5["Phase 5: WebSocket 실시간 채팅<br/>📦 sample-05-realtime-chat"]
@@ -118,3 +118,4 @@ rust-sandbox/
    - 데이터베이스 실습 시 기본으로 로컬 설정이 가장 쉬운 **SQLite**로 시작하여 **PostgreSQL**로 확장하는 방향이 괜찮으신지요?
 2. **[2단계] Workspace 환경 구성 및 Phase 1 (sample-01-basic-api) 착수**
    - 확인을 주시면 `projects/` 폴더를 준비하고, Axum의 기초 문서 작성 및 첫 번째 샘플 프로젝트 구현을 곧바로 시작하겠습니다!
+

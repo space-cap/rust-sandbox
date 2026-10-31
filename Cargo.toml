@@ -1,0 +1,6 @@
+[workspace]
+members = [
+    "projects/sample-01-basic-api",
+]
+resolver = "2"
+
