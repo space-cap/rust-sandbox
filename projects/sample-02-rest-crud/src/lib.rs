@@ -25,3 +25,4 @@ pub fn create_app(state: AppState) -> Router {
 async fn root_handler() -> Html<&'static str> {
     Html("<h1>🦀 Sample 02: 견고한 RESTful CRUD API 서버</h1><p><code>/api/todos</code> 엔드포인트를 사용해 보세요!</p>")
 }
+
