@@ -136,3 +136,4 @@ cargo sqlx migrate add add_priority_column
 Creating migrations/20261101043512_add_priority_column.sql
 ```
 이 파일 안에 적용할 DDL SQL문만 적어주면 끝납니다! 🚀
+
