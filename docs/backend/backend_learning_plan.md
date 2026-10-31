@@ -99,6 +99,7 @@ rust-sandbox/
 │       ├── 01_tokio_and_axum_intro.md
 │       ├── 02_rest_api_architecture.md
 │       ├── 03_sqlx_database_guide.md
+│       ├── sqlx_migration_guide.md    # SQLx 마이그레이션 심화 가이드
 │       ├── 04_auth_and_middleware.md
 │       └── 05_realtime_websocket.md
 └── projects/                # 📂 실전 샘플 프로젝트 모음

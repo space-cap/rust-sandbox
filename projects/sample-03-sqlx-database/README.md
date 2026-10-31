@@ -7,6 +7,7 @@
 ## 📌 주요 학습 내용
 1. **비동기 커넥션 풀 관리**: `SqlitePool`을 Axum의 `State`로 공유하여 논블로킹 I/O 구현
 2. **코드 레벨 자동 마이그레이션**: `migrations/` 내의 DDL 스크립트를 서버 기동 시 자동 적용
+   - 📖 *상세 해설 가이드*: [SQLx 마이그레이션 완전 정복 가이드](../../docs/backend/sqlx_migration_guide.md)
 3. **타입 안전한 SQL 쿼리**: `sqlx::query_as`와 `FromRow`로 DB 레코드를 Rust 구조체로 자동 매핑
 4. **영구 저장과 격리 테스트 분리**:
    - 운영/개발: 파일 기반 SQLite (`todos.db`)
