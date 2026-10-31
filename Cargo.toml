@@ -2,5 +2,6 @@
 members = [
     "projects/sample-01-basic-api",
     "projects/sample-02-rest-crud",
+    "projects/sample-03-sqlx-database",
 ]
 resolver = "2"
