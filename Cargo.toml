@@ -4,5 +4,6 @@ members = [
     "projects/sample-02-rest-crud",
     "projects/sample-03-sqlx-database",
     "projects/sample-04-auth-jwt",
+    "projects/sample-05-realtime-chat",
 ]
 resolver = "2"

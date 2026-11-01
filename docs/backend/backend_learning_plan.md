@@ -23,7 +23,7 @@ flowchart TD
     P1["Phase 1: 비동기 기초 & Hello Axum ✅<br/>📦 sample-01-basic-api"] --> P2["Phase 2: REST CRUD & 상태 관리 ✅<br/>📦 sample-02-rest-crud"]
     P2 --> P3["Phase 3: SQLx DB 연동 & 트랜잭션 ✅<br/>📦 sample-03-sqlx-database"]
     P3 --> P4["Phase 4: JWT 인증 & 보안 미들웨어 ✅<br/>📦 sample-04-auth-jwt"]
-    P4 --> P5["Phase 5: WebSocket 실시간 채팅<br/>📦 sample-05-realtime-chat"]
+    P4 --> P5["Phase 5: WebSocket 실시간 채팅 ✅<br/>📦 sample-05-realtime-chat"]
     P5 --> P6["Phase 6: 부하 테스트 & 15MB 도커 배포<br/>🚀 k6 / wrk 벤치마크 & Docker"]
 ```
 
