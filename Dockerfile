@@ -36,3 +36,4 @@ EXPOSE 3001
 
 # 컨테이너 시작 명령
 CMD ["/app/server"]
+

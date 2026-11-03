@@ -47,3 +47,4 @@ export default function () {
   // 가상 사용자의 자연스러운 요청 간격 (0.05초 대기)
   sleep(0.05);
 }
+
