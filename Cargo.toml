@@ -1,9 +1,9 @@
 [workspace]
 members = [
-    "projects/sample-01-basic-api",
-    "projects/sample-02-rest-crud",
-    "projects/sample-03-sqlx-database",
-    "projects/sample-04-auth-jwt",
-    "projects/sample-05-realtime-chat",
+    "projects/backend/sample-01-basic-api",
+    "projects/backend/sample-02-rest-crud",
+    "projects/backend/sample-03-sqlx-database",
+    "projects/backend/sample-04-auth-jwt",
+    "projects/backend/sample-05-realtime-chat",
 ]
 resolver = "2"

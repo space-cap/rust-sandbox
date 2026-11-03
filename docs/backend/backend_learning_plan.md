@@ -32,7 +32,7 @@ flowchart TD
 
 ### [Phase 1] 비동기 Rust의 원리와 Axum 시작하기 ✅
 - 📄 **이론 가이드**: [01_tokio_and_axum_intro.md](01_tokio_and_axum_intro.md)
-- 📦 **실습 프로젝트**: [`projects/sample-01-basic-api`](../../projects/sample-01-basic-api) (포트 3000)
+- 📦 **실습 프로젝트**: [`projects/backend/sample-01-basic-api`](../../projects/backend/sample-01-basic-api) (포트 3000)
 - **주요 학습 내용**:
   - `async / await`의 동작 원리와 미래 객체(`Future`)
   - Tokio 비동기 런타임의 작업 훔치기(Work-Stealing) 멀티스레드 스케줄러
@@ -41,7 +41,7 @@ flowchart TD
 
 ### [Phase 2] 견고한 RESTful API 아키텍처와 상태 공유 ✅
 - 📄 **이론 가이드**: [02_rest_api_architecture.md](02_rest_api_architecture.md)
-- 📦 **실습 프로젝트**: [`projects/sample-02-rest-crud`](../../projects/sample-02-rest-crud) (포트 3001)
+- 📦 **실습 프로젝트**: [`projects/backend/sample-02-rest-crud`](../../projects/backend/sample-02-rest-crud) (포트 3001)
 - **주요 학습 내용**:
   - `AppState`와 `Arc<RwLock<T>>`를 이용한 멀티스레드 안전한 인메모리 상태 공유
   - 계층형 아키텍처 설계 (Router ➡️ Handler ➡️ Service ➡️ Repository)
@@ -51,7 +51,7 @@ flowchart TD
 ### [Phase 3] 컴파일 타임 안전성을 보장하는 SQLx 데이터베이스 ✅
 - 📄 **이론 가이드**: [03_sqlx_database_guide.md](03_sqlx_database_guide.md)
 - 📖 **심화 가이드**: [sqlx_migration_guide.md](sqlx_migration_guide.md) (자동 마이그레이션 & `_sqlx_migrations` 장부 원리)
-- 📦 **실습 프로젝트**: [`projects/sample-03-sqlx-database`](../../projects/sample-03-sqlx-database) (포트 3002)
+- 📦 **실습 프로젝트**: [`projects/backend/sample-03-sqlx-database`](../../projects/backend/sample-03-sqlx-database) (포트 3002)
 - **주요 학습 내용**:
   - 무거운 ORM의 N+1 한계를 끝낸 컴파일 타임 SQL 검증 및 비동기 커넥션 풀(`SqlitePool`)
   - `sqlx::migrate!`를 통한 서버 내장 자동 DDL 마이그레이션
@@ -60,7 +60,7 @@ flowchart TD
 
 ### [Phase 4] JWT 인증, 비밀번호 암호화, 그리고 미들웨어 ✅
 - 📄 **이론 가이드**: [04_auth_and_middleware.md](04_auth_and_middleware.md)
-- 📦 **실습 프로젝트**: [`projects/sample-04-auth-jwt`](../../projects/sample-04-auth-jwt) (포트 3003)
+- 📦 **실습 프로젝트**: [`projects/backend/sample-04-auth-jwt`](../../projects/backend/sample-04-auth-jwt) (포트 3003)
 - **주요 학습 내용**:
   - GPU 무차별 대입 공격을 방어하는 최고 등급 `Argon2id` 비밀번호 암호화
   - JWT 토큰 발급(HS256) 및 유효기간(`exp`) 검증
@@ -69,7 +69,7 @@ flowchart TD
 
 ### [Phase 5] 10만 동시 접속을 버티는 실시간 웹소켓(WebSocket) ✅
 - 📄 **이론 가이드**: [05_realtime_websocket.md](05_realtime_websocket.md)
-- 📦 **실습 프로젝트**: [`projects/sample-05-realtime-chat`](../../projects/sample-05-realtime-chat) (포트 3004)
+- 📦 **실습 프로젝트**: [`projects/backend/sample-05-realtime-chat`](../../projects/backend/sample-05-realtime-chat) (포트 3004)
 - **주요 학습 내용**:
   - HTTP에서 WebSocket으로 프로토콜 업그레이드 및 송/수신 스트림 분리(`socket.split()`)
   - Tokio `broadcast` 채널을 활용한 1:N 락프리 메시지 팬아웃 브로드캐스팅

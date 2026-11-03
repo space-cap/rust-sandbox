@@ -12,7 +12,7 @@
 | **목표** | React/Vue 개발자의 경험을 살려, Rust 기반 WebAssembly 웹 UI 프레임워크와 네이티브 연산 모듈 구축 역량 확보 |
 | **주 기술 스택** | • 웹 기술: **WebAssembly (Wasm)** (브라우저 바이너리 실행 규격)<br>• Rust 브릿지: **wasm-bindgen**, **web-sys**, **js-sys**<br>• 프론트엔드 번들러: **Trunk** (Rust 전용 초고속 Wasm 번들러, 핫 리로딩 지원)<br>• UI 프레임워크: **Yew** (React 스타일 컴포넌트/Hooks), **Leptos** (SolidJS 스타일 초고속 반응성)<br>• 네트워크 & 상태: **gloo-net** (비동기 Fetch), **gloo-storage** (LocalStorage)<br>• 풀스택 연동: 앞서 완성한 **Axum 백엔드**와의 완벽한 엔드투엔드 결합 |
 | **문서 저장 위치** | `c:\workdir\space-cap\rust-sandbox\docs\frontend` |
-| **실습 프로젝트 위치** | `c:\workdir\space-cap\rust-sandbox\projects-frontend` |
+| **실습 프로젝트 위치** | `c:\workdir\space-cap\rust-sandbox\projects\frontend` |
 
 ---
 
@@ -64,7 +64,7 @@ flowchart TD
     *(TypeScript/Swagger 변환 없이 단일 Rust 모델로 100% 타입 일치!)*
   - CORS 헤더 처리 및 로딩 스피너, 에러 바운더리 UI 처리
 - **만들 샘플 프로젝트**: `wasm-04-fullstack-integration`
-  - 앞서 제작한 [sample-02-rest-crud](file:///c:/workdir/space-cap/rust-sandbox/projects/sample-02-rest-crud) Axum API 서버와 실시간으로 통신하는 Yew 프론트엔드 연동
+  - 앞서 제작한 [sample-02-rest-crud](file:///c:/workdir/space-cap/rust-sandbox/projects/backend/sample-02-rest-crud) Axum API 서버와 실시간으로 통신하는 Yew 프론트엔드 연동
 
 ### [Phase 5] JavaScript 대비 20배 빠른 고성능 그래픽 연산 (Canvas 2D)
 - **이론 & 핵심 개념**:
@@ -115,3 +115,4 @@ rust-sandbox/
 2. **도구 준비**: Wasm 컴파일을 위해 `wasm32-unknown-unknown` 타깃과 `trunk` 번들러를 사용할 예정입니다. (필요 시 자동으로 명령어 안내)
 
 확인 후 계획대로 시작해도 좋을지 말씀해 주시면, 즉시 **Phase 1: WebAssembly 기초 & Trunk 환경 세팅**에 착수하겠습니다! 🦀🎨✨
+
