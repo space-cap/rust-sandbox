@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rust Wasm 01: DOM 기초 & Trunk 번들러</title>
+  <link data-trunk rel="rust" />
+  <link data-trunk rel="css" href="styles.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="badge">Phase 1: WebAssembly & web-sys</div>
+      <h1>Rust DOM 조작 & Trunk 실습</h1>
+      <p class="subtitle">브라우저에서 JavaScript 없이 Rust 기계어로 DOM을 직접 제어하고 FFI 통신을 수행합니다.</p>
+    </header>
+
+    <div class="grid">
+      <!-- 1. 인터랙티브 카운터 -->
+      <div class="card">
+        <h2 class="card-title">🔢 1. Rust 인메모리 카운터</h2>
+        <div class="counter-box">
+          <div id="counter-val" class="counter-value">0</div>
+          <div class="btn-group">
+            <button id="btn-dec" class="primary">- 1</button>
+            <button id="btn-reset">초기화</button>
+            <button id="btn-inc" class="cyan">+ 1</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. 실시간 텍스트 분석기 -->
+      <div class="card">
+        <h2 class="card-title">✍️ 2. 실시간 텍스트 분석기</h2>
+        <input type="text" id="text-input" placeholder="여기에 텍스트를 입력해보세요..." />
+        <div class="result-list">
+          <div class="result-item">
+            <span class="result-label">글자 수 (Chars)</span>
+            <span id="out-char" class="result-val">0</span>
+          </div>
+          <div class="result-item">
+            <span class="result-label">단어 수 (Words)</span>
+            <span id="out-word" class="result-val">0</span>
+          </div>
+          <div class="result-item">
+            <span class="result-label">문자열 역순 (Reversed)</span>
+            <span id="out-reversed" class="result-val">-</span>
+          </div>
+          <div class="result-item">
+            <span class="result-label">대문자 변환 (Uppercase)</span>
+            <span id="out-uppercase" class="result-val">-</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. 초고속 피보나치 계산 -->
+      <div class="card">
+        <h2 class="card-title">⚡ 3. 고속 피보나치 연산</h2>
+        <div style="display: flex; gap: 0.5rem; margin-bottom: 0.5rem;">
+          <input type="number" id="fibo-input" value="30" min="0" max="90" style="margin-bottom: 0;" />
+          <button id="btn-fibo" class="cyan" style="white-space: nowrap;">계산하기</button>
+        </div>
+        <div class="info-box" id="fibo-result">
+          계산하기 버튼을 누르면 Wasm 네이티브 속도로 계산됩니다.
+        </div>
+      </div>
+
+      <!-- 4. Rust ↔ JS FFI 연동 -->
+      <div class="card">
+        <h2 class="card-title">🤝 4. Rust ↔ JS FFI 상호 호출</h2>
+        <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 1rem;">
+          Wasm 내부에서 브라우저의 <code>window.alert()</code> 함수 및 <code>console.log()</code>를 호출합니다.
+        </p>
+        <button id="btn-alert" class="primary" style="width: 100%;">
+          📢 Rust에서 JS Alert 띄우기
+        </button>
+        <div class="info-box" style="margin-top: 1rem;">
+          💡 <strong>개발자 도구 (F12) 콘솔</strong>을 열어보세요! Rust 모듈에서 출력한 다채로운 로그를 확인할 수 있습니다.
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      Rust WebAssembly Curriculum | Built with Rust & Trunk
+    </footer>
+  </div>
+</body>
+</html>
+

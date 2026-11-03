@@ -5,5 +5,6 @@ members = [
     "projects/backend/sample-03-sqlx-database",
     "projects/backend/sample-04-auth-jwt",
     "projects/backend/sample-05-realtime-chat",
+    "projects/frontend/wasm-01-dom-basics",
 ]
 resolver = "2"

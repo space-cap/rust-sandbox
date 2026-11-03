@@ -20,7 +20,7 @@
 
 ```mermaid
 flowchart TD
-    F1["Phase 1: Wasm 기초 & Trunk 빌드 환경<br/>📦 wasm-01-dom-basics"] --> F2["Phase 2: React 스타일의 Yew 프레임워크<br/>📦 wasm-02-yew-counter"]
+    F1["Phase 1: Wasm 기초 & Trunk 빌드 환경 ✅<br/>📦 wasm-01-dom-basics"] --> F2["Phase 2: React 스타일의 Yew 프레임워크<br/>📦 wasm-02-yew-counter"]
     F2 --> F3["Phase 3: Yew Todo 앱 & 컴포넌트 분리<br/>📦 wasm-03-yew-todo"]
     F3 --> F4["Phase 4: Axum 백엔드 연동 풀스택 통신<br/>📦 wasm-04-fullstack-integration"]
     F4 --> F5["Phase 5: Canvas 2D 고성능 그래픽 연산<br/>📦 wasm-05-performance-canvas"]
@@ -29,15 +29,17 @@ flowchart TD
 
 ---
 
-### [Phase 1] WebAssembly(Wasm) 기초와 Trunk 번들러 세팅
-- **이론 & 핵심 개념**:
+### [Phase 1] WebAssembly(Wasm) 기초와 Trunk 번들러 세팅 ✅
+- 📄 **이론 가이드**: [01_wasm_and_trunk_intro.md](01_wasm_and_trunk_intro.md)
+- 📦 **실습 프로젝트**: [`projects/frontend/wasm-01-dom-basics`](../../projects/frontend/wasm-01-dom-basics)
+- **주요 학습 내용**:
   - WebAssembly(Wasm)란 무엇이며 브라우저는 이를 어떻게 기계어처럼 실행하는가?
   - `wasm-bindgen`: Rust와 JavaScript 간의 메모리 복사 없는 고속 데이터 교환
   - `web-sys`: 브라우저의 DOM(`window`, `document`, HTML 요소)을 Rust 타입으로 조작하기
   - Vite/Webpack과 같은 Rust 전용 번들러 **`Trunk`** 설치 및 핫 리로딩 환경 구축
-- **만들 샘플 프로젝트**: `wasm-01-dom-basics`
   - Rust로 버튼 클릭 이벤트 수신 및 브라우저 DOM 동적 렌더링
   - JavaScript 함수와 Rust 함수 상호 호출(FFI) 실습
+  - 순수 로직 단위 테스트 3종 통과 & `trunk build` 배포 번들링 검증 완료
 
 ### [Phase 2] React 개발자를 위한 Yew 프레임워크 입문
 - **이론 & 핵심 개념**:
@@ -98,13 +100,15 @@ rust-sandbox/
 │       ├── 04_fullstack_axum_integration.md
 │       ├── 05_high_perf_canvas.md
 │       └── 06_leptos_and_deployment.md
-└── projects-frontend/       # 📂 프론트엔드 Wasm 샘플 프로젝트 모음
-    ├── wasm-01-dom-basics/
-    ├── wasm-02-yew-counter/
-    ├── wasm-03-yew-todo/
-    ├── wasm-04-fullstack-integration/
-    ├── wasm-05-performance-canvas/
-    └── wasm-06-leptos-showcase/
+└── projects/
+    ├── backend/             # 📂 완성된 백엔드 5대 실습 프로젝트
+    └── frontend/            # 📂 [NEW] 프론트엔드 Wasm 샘플 프로젝트 모음
+        ├── wasm-01-dom-basics/           # ✅ Phase 1 완료
+        ├── wasm-02-yew-counter/
+        ├── wasm-03-yew-todo/
+        ├── wasm-04-fullstack-integration/
+        ├── wasm-05-performance-canvas/
+        └── wasm-06-leptos-showcase/
 ```
 
 ---
