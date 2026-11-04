@@ -225,3 +225,4 @@ trunk serve --port 9091
 | **Phase 3** 🔜 | Yew Todo 앱 & 컴포넌트 분리 | 폼 입력 제어, `gloo-storage`(LocalStorage 영구 저장), 필터링 |
 
 다음 **Phase 3**에서는 사용자 텍스트 입력 처리(Controlled Components), 키보드 Enter 이벤트 청취, 그리고 브라우저를 닫아도 데이터가 유지되는 `LocalStorage` 연동을 결합한 본격적인 웹 애플리케이션인 **`wasm-03-yew-todo`**를 구축합니다! 🚀
+

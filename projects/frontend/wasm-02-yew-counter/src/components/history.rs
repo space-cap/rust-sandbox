@@ -61,3 +61,4 @@ pub fn history_view(props: &HistoryProps) -> Html {
         </div>
     }
 }
+

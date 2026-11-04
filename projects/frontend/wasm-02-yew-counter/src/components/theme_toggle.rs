@@ -20,3 +20,4 @@ pub fn theme_toggle(props: &ThemeToggleProps) -> Html {
         </button>
     }
 }
+

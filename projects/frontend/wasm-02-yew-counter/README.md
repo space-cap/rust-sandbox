@@ -53,3 +53,4 @@ trunk build --release
 ```
 
 - `dist/` 폴더에 최적화된 `.wasm` 바이너리와 정적 웹 번들이 생성됩니다.
+

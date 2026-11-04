@@ -174,3 +174,4 @@ mod tests {
         assert_eq!(next.toggle(), Theme::Dark);
     }
 }
+

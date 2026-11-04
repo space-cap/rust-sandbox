@@ -2836,6 +2836,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "wasm-03-yew-todo"
+version = "0.1.0"
+dependencies = [
+ "console_error_panic_hook",
+ "gloo-storage 0.3.0",
+ "serde",
+ "wasm-bindgen",
+ "web-sys",
+ "yew",
+]
+
+[[package]]
 name = "wasm-bindgen"
 version = "0.2.130"
 source = "registry+https://github.com/rust-lang/crates.io-index"

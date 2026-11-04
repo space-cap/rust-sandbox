@@ -21,7 +21,7 @@
 ```mermaid
 flowchart TD
     F1["Phase 1: Wasm 기초 & Trunk 빌드 환경 ✅<br/>📦 wasm-01-dom-basics"] --> F2["Phase 2: React 스타일의 Yew 프레임워크 ✅<br/>📦 wasm-02-yew-counter"]
-    F2 --> F3["Phase 3: Yew Todo 앱 & 컴포넌트 분리<br/>📦 wasm-03-yew-todo"]
+    F2 --> F3["Phase 3: Yew Todo 앱 & 컴포넌트 분리 ✅<br/>📦 wasm-03-yew-todo"]
     F3 --> F4["Phase 4: Axum 백엔드 연동 풀스택 통신<br/>📦 wasm-04-fullstack-integration"]
     F4 --> F5["Phase 5: Canvas 2D 고성능 그래픽 연산<br/>📦 wasm-05-performance-canvas"]
     F5 --> F6["Phase 6: 차세대 Leptos 프레임워크 & 배포<br/>🚀 wasm-06-leptos-showcase"]
@@ -53,14 +53,16 @@ flowchart TD
   - CSS Custom Properties를 연동한 실시간 다크/라이트 테마 스위처
   - 순수 Rust 상태 전이 단위 테스트 4종 통과 & `trunk build` 번들링 검증 완료
 
-### [Phase 3] Yew로 완성하는 모던 웹 애플리케이션 (Todo & 컴포넌트 분리)
-- **이론 & 핵심 개념**:
-  - 컴포넌트 Props 전달과 부모-자식 간의 양방향 이벤트 통신
-  - 입력 폼 제어(Controlled Components)와 키보드 Enter 이벤트
-  - 로컬스토리지 연동(`gloo-storage`)을 통한 영구 상태 보존
-  - 모던 CSS 스타일링 적용 (Flexbox/Grid 반응형 레이아웃)
-- **만들 샘플 프로젝트**: `wasm-03-yew-todo`
-  - 할 일 추가, 필터링(전체/진행중/완료), 일괄 삭제, 로컬 브라우저 저장 기능을 갖춘 완성형 Todo 웹앱
+### [Phase 3] Yew로 완성하는 모던 웹 애플리케이션 (Todo & 컴포넌트 분리) ✅
+- 📄 **이론 가이드**: [03_yew_interactive_todo.md](03_yew_interactive_todo.md)
+- 📦 **실습 프로젝트**: [`projects/frontend/wasm-03-yew-todo`](../../projects/frontend/wasm-03-yew-todo)
+- **주요 학습 내용**:
+  - 단방향 데이터 흐름(Props Down)과 양방향 이벤트 통신(`cb.emit`)
+  - 제어 컴포넌트(Controlled Input): `HtmlInputElement` 변환 및 키보드 Enter 이벤트 처리
+  - 개별 항목 인라인 더블클릭 수정 모드 (로컬 상태 `is_editing` 관리)
+  - `gloo-storage`와 `use_effect_with`를 통한 브라우저 `LocalStorage` 자동 영구 보존
+  - 필터링(전체/진행 중/완료됨), 일괄 완료 토글, 완료 항목 일괄 삭제
+  - 순수 Rust 단위 테스트 4종 통과 & `trunk build` 번들링 검증 완료
 
 ### [Phase 4] Rust 백엔드(Axum)와의 풀스택 연동 (End-to-End)
 - **이론 & 핵심 개념**:
@@ -108,7 +110,7 @@ rust-sandbox/
     └── frontend/            # 📂 프론트엔드 Wasm 샘플 프로젝트 모음
         ├── wasm-01-dom-basics/           # ✅ Phase 1 완료
         ├── wasm-02-yew-counter/          # ✅ Phase 2 완료
-        ├── wasm-03-yew-todo/
+        ├── wasm-03-yew-todo/             # ✅ Phase 3 완료
         ├── wasm-04-fullstack-integration/
         ├── wasm-05-performance-canvas/
         └── wasm-06-leptos-showcase/
