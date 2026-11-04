@@ -276,3 +276,4 @@ jobs:
 | **Phase 4** | [`wasm-04-fullstack-integration`](../../projects/frontend/wasm-04-fullstack-integration) | 동일 DTO 공유 풀스택, `gloo-net` 비동기 REST CRUD, 리버스 프록시 |
 | **Phase 5** | [`wasm-05-performance-canvas`](../../projects/frontend/wasm-05-performance-canvas) | Canvas 2D 직접 제어, GC 없는 60FPS 파티클 물리 시뮬레이션 |
 | **Phase 6** | [`wasm-06-leptos-showcase`](../../projects/frontend/wasm-06-leptos-showcase) | **Leptos 0.7 세분화 반응성(Zero VDOM), `<For>`, 클라우드 정적 배포** |
+

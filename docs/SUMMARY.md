@@ -63,3 +63,34 @@
   - [9.2 초보자가 가장 많이 만나는 컴파일 에러 Top 5와 해결법](09_appendix_cheatsheet.md#92-초보자가-가장-많이-만나는-컴파일-에러-top-5와-해결법)
   - [9.3 다음 걸음을 위한 추천 학습 로드맵](09_appendix_cheatsheet.md#93-다음-걸음을-위한-추천-학습-로드맵)
 
+
+
+---
+
+## 🚀 실전 분야별 심화 마스터 시리즈
+
+### 🖥️ 데스크톱 GUI 앱 개발 마스터
+- [로드맵: Rust 데스크톱 GUI 앱 개발 마스터 플랜](desktop/desktop_learning_plan.md)
+  - [01장. Rust 데스크톱 생태계 지도 & 4대 패러다임 심층 분석](desktop/01_desktop_gui_landscape.md)
+  - [02장. 데스크톱 앱 개발 필수 메커니즘과 동작 원리](desktop/02_gui_core_mechanisms.md)
+  - [03장. 실무 1순위: Tauri 2.0 아키텍처 & IPC 심층 분석](desktop/03_tauri_deep_dive.md)
+  - [04장. 순수 Rust GUI의 세계: egui (즉시 모드) & Iced (보유 모드) 실전 패턴](desktop/04_pure_rust_gui_egui_iced.md)
+  - [05장. 배포 및 프로덕션 완벽 가이드 (설치 파일, 자동 업데이트, 코드 서명)](desktop/05_packaging_and_distribution.md)
+
+### 🎨 프론트엔드 & WebAssembly 마스터
+- [로드맵: Rust Wasm & 프론트엔드 마스터 플랜](frontend/frontend_learning_plan.md)
+  - [01장. Wasm 기초 & Trunk 번들러 환경 세팅](frontend/01_wasm_and_trunk_intro.md)
+  - [02장. Yew 컴포넌트 모델 & use_state 상태 관리](frontend/02_yew_component_and_state.md)
+  - [03장. 실전 Yew Todo 웹앱 & LocalStorage 영구 보존](frontend/03_yew_interactive_todo.md)
+  - [04장. Rust 백엔드(Axum)와의 풀스택 연동 (End-to-End)](frontend/04_fullstack_axum_integration.md)
+  - [05장. JavaScript 대비 20배 빠른 고성능 그래픽 연산 (Canvas 2D)](frontend/05_high_perf_canvas.md)
+  - [06장. 차세대 초고속 프레임워크 Leptos & 정적 배포](frontend/06_leptos_and_deployment.md)
+
+### ⚙️ 백엔드 & 비동기 런타임 마스터
+- [로드맵: Rust 고성능 백엔드 마스터 플랜](backend/backend_learning_plan.md)
+  - [01장. 비동기 Rust의 원리와 Axum 시작하기](backend/01_tokio_and_axum_intro.md)
+  - [02장. 견고한 RESTful API 아키텍처와 상태 공유](backend/02_rest_api_architecture.md)
+  - [03장. SQLx와 PostgreSQL로 완전 비동기 데이터베이스 다루기](backend/03_sqlx_database_guide.md)
+  - [04장. 엔터프라이즈급 인증(JWT), 보안, 그리고 미들웨어](backend/04_auth_and_middleware.md)
+  - [05장. 실시간 양방향 통신: WebSocket & Tokio Broadcast](backend/05_realtime_websocket.md)
+  - [06장. 벤치마크, 프로파일링, 그리고 초경량 Docker 배포](backend/06_benchmark_and_docker.md)

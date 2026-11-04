@@ -49,3 +49,4 @@ cargo test
 trunk build --release
 ```
 `dist/` 디렉터리에 압축 및 최적화된 정적 웹 에셋 생성
+
