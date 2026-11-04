@@ -3,6 +3,79 @@ use crate::models::{
     calculate_experience_level, format_greeting, AppTheme, UserProfile, UserRole,
 };
 
+pub fn setup_custom_fonts(ctx: &egui::Context) {
+    let mut fonts = egui::FontDefinitions::default();
+
+    // 한국어 지원 폰트 후보군
+    let mut font_candidates = Vec::new();
+    if let Ok(windir) = std::env::var("WINDIR") {
+        font_candidates.push(format!("{windir}\\Fonts\\malgun.ttf"));
+        font_candidates.push(format!("{windir}\\Fonts\\gulim.ttc"));
+    }
+    font_candidates.push("C:\\Windows\\Fonts\\malgun.ttf".to_string());
+    font_candidates.push("C:\\Windows\\Fonts\\gulim.ttc".to_string());
+    font_candidates.push("/System/Library/Fonts/AppleSDGothicNeo.ttc".to_string());
+    font_candidates.push("/Library/Fonts/Arial Unicode.ttf".to_string());
+    font_candidates.push("/usr/share/fonts/truetype/nanum/NanumGothic.ttf".to_string());
+    font_candidates.push("/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc".to_string());
+    font_candidates.push("/usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc".to_string());
+
+    let mut loaded = false;
+    for path in font_candidates {
+        if let Ok(font_bytes) = std::fs::read(&path) {
+            fonts.font_data.insert(
+                "korean_font".to_owned(),
+                egui::FontData::from_owned(font_bytes).into(),
+            );
+            // 비례 폰트 우선순위에 추가
+            fonts
+                .families
+                .entry(egui::FontFamily::Proportional)
+                .or_default()
+                .insert(0, "korean_font".to_owned());
+            // 고정폭 폰트 fallback에도 추가
+            fonts
+                .families
+                .entry(egui::FontFamily::Monospace)
+                .or_default()
+                .push("korean_font".to_owned());
+            loaded = true;
+            break;
+        }
+    }
+
+    // Windows Segoe UI Emoji 지원 (가능한 경우)
+    let mut emoji_candidates = Vec::new();
+    if let Ok(windir) = std::env::var("WINDIR") {
+        emoji_candidates.push(format!("{windir}\\Fonts\\seguiemj.ttf"));
+    }
+    emoji_candidates.push("C:\\Windows\\Fonts\\seguiemj.ttf".to_string());
+
+    for path in emoji_candidates {
+        if let Ok(emoji_bytes) = std::fs::read(&path) {
+            fonts.font_data.insert(
+                "emoji_font".to_owned(),
+                egui::FontData::from_owned(emoji_bytes).into(),
+            );
+            fonts
+                .families
+                .entry(egui::FontFamily::Proportional)
+                .or_default()
+                .push("emoji_font".to_owned());
+            fonts
+                .families
+                .entry(egui::FontFamily::Monospace)
+                .or_default()
+                .push("emoji_font".to_owned());
+            break;
+        }
+    }
+
+    if loaded {
+        ctx.set_fonts(fonts);
+    }
+}
+
 pub struct DesktopBasicsApp {
     pub user: UserProfile,
     pub counter: i32,
@@ -28,7 +101,8 @@ impl Default for DesktopBasicsApp {
 }
 
 impl DesktopBasicsApp {
-    pub fn new(_cc: &eframe::CreationContext<'_>) -> Self {
+    pub fn new(cc: &eframe::CreationContext<'_>) -> Self {
+        setup_custom_fonts(&cc.egui_ctx);
         // 커스텀 폰트 또는 초기 스타일 설정 가능
         Self::default()
     }
@@ -249,5 +323,26 @@ impl eframe::App for DesktopBasicsApp {
                 });
             self.show_about_dialog = is_open && !close_clicked;
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_font_setup() {
+        let ctx = egui::Context::default();
+        setup_custom_fonts(&ctx);
+        let _ = ctx.run(egui::RawInput::default(), |ctx| {
+            ctx.fonts(|fonts| {
+                let galley = fonts.layout_no_wrap(
+                    "초경량 GUI 기초 🦀 🚀 123".to_string(),
+                    egui::FontId::proportional(14.0),
+                    egui::Color32::WHITE,
+                );
+                assert!(galley.size().x > 0.0);
+            });
+        });
     }
 }

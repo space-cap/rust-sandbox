@@ -20,9 +20,9 @@
 
 ```mermaid
 flowchart TD
-    D1["Phase 1: egui 초경량 즉시 모드 입문 ✅<br/>📦 desktop-01-egui-basics<br/>• eframe 윈도우 생성 & 인터랙티브 위젯"] --> D2["Phase 2: 실시간 데이터 시각화 & 비동기 워커 📊<br/>📦 desktop-02-egui-dashboard<br/>• Tokio 채널 연동, CPU/메모리 차트, 파일 다이얼로그"]
+    D1["Phase 1: egui 초경량 즉시 모드 입문 ✅<br/>📦 desktop-01-egui-basics<br/>• eframe 윈도우 생성 & 인터랙티브 위젯"] --> D2["Phase 2: 실시간 데이터 시각화 & 비동기 워커 📊 ✅<br/>📦 desktop-02-egui-dashboard<br/>• Tokio 채널 연동, CPU/메모리 차트, 파일 다이얼로그"]
     
-    D2 --> D3["Phase 3: 순수 Rust 보유 모드 (Iced) 🌲<br/>📦 desktop-03-iced-todo<br/>• Elm 아키텍처 (Model-View-Update), 네이티브 위젯 트리"]
+    D2 --> D3["Phase 3: 순수 Rust 보유 모드 (Iced) 🌲 ✅<br/>📦 desktop-03-iced-todo<br/>• Elm 아키텍처 (Model-View-Update), 네이티브 위젯 트리"]
     
     D3 --> D4["Phase 4: 상용 표준 Tauri 2.0 입문 🚀<br/>📦 desktop-04-tauri-basics<br/>• Wry 웹뷰 + Rust 백엔드, 초고속 IPC Commands"]
     
@@ -46,25 +46,27 @@ flowchart TD
   - 실시간 다크/라이트 테마 스위처 및 폰트 커스터마이징
   - 순수 비즈니스 로직 단위 테스트 5종 통과 & `cargo run` 윈도우 실행 검증 완료
 
-### [Phase 2] egui 실시간 모니터링 대시보드 & 비동기 워커 연동
+### [Phase 2] egui 실시간 모니터링 대시보드 & 비동기 워커 연동 ✅
 - 📄 **이론 가이드**: [02_gui_core_mechanisms.md](02_gui_core_mechanisms.md)
-- 📦 **실습 프로젝트**: `projects/desktop/desktop-02-egui-dashboard`
+- 📦 **실습 프로젝트**: [`projects/desktop/desktop-02-egui-dashboard`](../../projects/desktop/desktop-02-egui-dashboard)
 - **주요 학습 내용**:
   - **메인 UI 스레드 프리징 차단**: Tokio 비동기 런타임과 백그라운드 워커 스레드 분리
   - 채널 통신: `std::sync::mpsc`를 통한 워커 $\rightarrow$ UI 논블로킹 데이터 전달
   - `egui_plot`을 활용한 실시간 CPU / 메모리 점유율 동적 라인 차트
   - 네이티브 파일 다이얼로그(`rfd`): 시스템 파일 탐색기 열기 및 CSV 데이터 로드/저장
   - 다중 탭 및 사이드바 분할 레이아웃 구성
+  - 맑은 고딕 & Segoe UI Emoji 폰트 연동 및 단위 테스트 7종 자동 통과 검증 완료
 
-### [Phase 3] Iced 순수 Rust 보유 모드(Retained Mode) & Elm 아키텍처
+### [Phase 3] Iced 순수 Rust 보유 모드(Retained Mode) & Elm 아키텍처 ✅
 - 📄 **이론 가이드**: [04_pure_rust_gui_egui_iced.md](04_pure_rust_gui_egui_iced.md)
-- 📦 **실습 프로젝트**: `projects/desktop/desktop-03-iced-todo`
+- 📦 **실습 프로젝트**: [`projects/desktop/desktop-03-iced-todo`](../../projects/desktop/desktop-03-iced-todo)
 - **주요 학습 내용**:
   - 함수형 Elm 아키텍처: `State`, `Message`, `Update`, `View`의 단방향 데이터 흐름
   - 위젯 트리(Widget Tree) 기반 보유 모드 렌더링 원리
   - 선언적 레이아웃 매크로: `column![]`, `row![]`, 스크롤 영역, 커스텀 스타일링
   - 키보드 엔터/ESC 이벤트 핸들링 및 인라인 수정 모드
   - 로컬 파일(JSON) 영구 저장 및 단위 테스트
+  - 맑은 고딕(Malgun Gothic) 폰트 연동 및 단위 테스트 7종 자동 통과 검증 완료
 
 ### [Phase 4] 상용 표준 Tauri 2.0 입문 (Rust 백엔드 + 모던 웹 UI)
 - 📄 **이론 가이드**: [03_tauri_deep_dive.md](03_tauri_deep_dive.md)

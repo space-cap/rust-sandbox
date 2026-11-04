@@ -12,5 +12,7 @@ members = [
     "projects/frontend/wasm-05-performance-canvas",
     "projects/frontend/wasm-06-leptos-showcase",
     "projects/desktop/desktop-01-egui-basics",
+    "projects/desktop/desktop-02-egui-dashboard",
+    "projects/desktop/desktop-03-iced-todo",
 ]
 resolver = "2"
