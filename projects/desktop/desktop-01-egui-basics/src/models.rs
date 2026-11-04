@@ -80,3 +80,4 @@ pub fn validate_username(name: &str) -> Result<(), &'static str> {
     }
     Ok(())
 }
+

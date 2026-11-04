@@ -60,3 +60,4 @@ fn test_counter_and_history() {
     }
     assert!(app.click_history.len() <= 50);
 }
+
