@@ -1,74 +1,124 @@
-# 🖥️ Rust 데스크톱 GUI 앱 개발 마스터 로드맵 & 가이드
+# 🖥️ Rust 데스크톱 GUI 앱 개발 마스터 작업계획서
 
 > **"Electron의 무거운 메모리(300MB+)와 수백 MB 용량을 15MB 초경량과 네이티브 속도로 대체한다!"**  
-> 본 문서는 Rust를 활용하여 현대적이고 안정적인 데스크톱 GUI(Graphical User Interface) 애플리케이션을 개발하기 위해 반드시 알아야 할 **핵심 지식, 프레임워크 선택 기준, 렌더링 아키텍처, 프로덕션 배포 파이프라인**을 체계적으로 정리한 마스터 플랜입니다.
+> 본 계획서는 백엔드와 프론트엔드를 마스터한 개발자가 Rust의 강력한 시스템 프로그래밍 역량을 데스크톱 GUI로 확장하여, **즉시 모드(egui), 보유 모드(Iced), 그리고 상용 표준(Tauri 2.0)**까지 실전 데스크톱 프로그램을 직접 구축할 수 있도록 설계된 **단계별(Phase 1 ~ Phase 6) 실습 중심 마스터 로드맵**입니다.
 
 ---
 
-## 1. 데스크톱 GUI 아키텍처 4대 진영 한눈에 보기
+## 1. 프로젝트 개요 & 학습 목표
 
-Rust 데스크톱 생태계는 접근 방식에 따라 크게 **4가지 아키텍처 패러다임**으로 나뉩니다:
+| 항목 | 내용 |
+| :--- | :--- |
+| **목표** | 가볍고 빠른 크로스플랫폼(Windows/macOS/Linux) 네이티브 데스크톱 GUI 앱 개발 역량 확보 |
+| **주요 기술 스택** | • 즉시 모드 GUI: **egui / eframe** (GPU 하드웨어 가속, 상태 동기화 제로)<br>• 보유 모드 GUI: **Iced** (Elm 아키텍처, 100% 순수 Rust 네이티브 위젯 트리)<br>• 하이브리드 표준: **Tauri 2.0** (OS 내장 Webview + Rust 코어, 15MB 초경량)<br>• 윈도우 & 이벤트 루프: **winit**, **Tao**<br>• 비동기 & 스레딩: **Tokio**, `std::sync::mpsc` (UI 프리징 차단)<br>• 네이티브 OS 연동: **rfd** (파일 다이얼로그), **시스템 트레이**, **전역 단축키**<br>• 프로덕션 배포: **NSIS (.exe)**, **WiX (.msi)**, **Ed25519 자동 업데이트** |
+| **문서 저장 위치** | `docs/desktop` |
+| **실습 프로젝트 위치** | `projects/desktop` (Cargo Workspace 연동) |
+
+---
+
+## 2. 단계별 커리큘럼 및 실습 프로젝트 로드맵
 
 ```mermaid
 flowchart TD
-    Desktop["Rust 데스크톱 GUI 개발"]
+    D1["Phase 1: egui 초경량 즉시 모드 입문 ⚡<br/>📦 desktop-01-egui-basics<br/>• eframe 윈도우 생성 & 인터랙티브 위젯"] --> D2["Phase 2: 실시간 데이터 시각화 & 비동기 워커 📊<br/>📦 desktop-02-egui-dashboard<br/>• Tokio 채널 연동, CPU/메모리 차트, 파일 다이얼로그"]
     
-    Desktop --> P1["1. Webview 기반 (Tauri 2.0) 🏆<br/>웹 UI(HTML/CSS) + Rust 백엔드<br/>• Electron 완벽 대체 (15MB 용량, 30MB 메모리)<br/>• React/Svelte/Vue/Leptos 자유 사용"]
+    D2 --> D3["Phase 3: 순수 Rust 보유 모드 (Iced) 🌲<br/>📦 desktop-03-iced-todo<br/>• Elm 아키텍처 (Model-View-Update), 네이티브 위젯 트리"]
     
-    Desktop --> P2["2. 즉시 모드 GUI (egui) ⚡<br/>매 프레임마다 UI를 다시 계산<br/>• 상태 동기화 버그 원천 차단<br/>• 개발 도구/게임 엔진/데이터 시각화 최적"]
+    D3 --> D4["Phase 4: 상용 표준 Tauri 2.0 입문 🚀<br/>📦 desktop-04-tauri-basics<br/>• Wry 웹뷰 + Rust 백엔드, 초고속 IPC Commands"]
     
-    Desktop --> P3["3. 순수 Rust 보유 모드 (Iced / Slint) 🌲<br/>Elm / 위젯 트리 기반 네이티브 렌더링<br/>• 웹 기술 0%, 100% Rust 타입 안정성<br/>• 임베디드부터 데스크톱까지 단일 코드"]
+    D4 --> D5["Phase 5: 시스템 트레이 & 백그라운드 상주 유틸리티 🛠️<br/>📦 desktop-05-tauri-tray-tool<br/>• 작업표시줄 트레이, 전역 단축키, 네이티브 알림"]
     
-    Desktop --> P4["4. 크로스플랫폼 통합 (Dioxus Desktop) 🌐<br/>React 스타일 선언적 문법<br/>• 웹, 데스크톱, 모바일 단일 코드베이스"]
+    D5 --> D6["Phase 6: 프로덕션 패키징 & 자동 업데이트 📦<br/>🚀 desktop-06-production-deploy<br/>• Windows NSIS (.exe) 인스톨러, Ed25519 무중단 패치"]
 ```
 
 ---
 
-## 2. 프레임워크 선택 의사결정 매트릭스 (Decision Matrix)
+## 3. 단계별 상세 실습 가이드
 
-| 구분 | **Tauri 2.0** (대세 1순위) | **egui** (개발도구 1순위) | **Iced** (순수 Rust 1순위) | **Slint** (임베디드/모던) |
-| :--- | :--- | :--- | :--- | :--- |
-| **렌더링 방식** | OS 내장 Webview (WebView2/WebKit) | GPU 직접 렌더링 (`wgpu` / OpenGL) | GPU 직접 렌더링 (`wgpu` / tiny-skia) | GPU 및 소프트웨어 렌더러 |
-| **패러다임** | Web UI + Rust IPC | 즉시 모드 (Immediate Mode) | 보유 모드 (Elm 아키텍처) | 반응형 속성 바인딩 DSL |
-| **UI 작성 언어** | HTML / CSS / JS / TS / Leptos | 순수 Rust 코드 | 순수 Rust 코드 | Slint 전용 마크업 DSL + Rust |
-| **바이너리 크기** | 약 **10 ~ 20 MB** | 약 **5 ~ 10 MB** | 약 **10 ~ 15 MB** | 약 **3 ~ 8 MB** (초경량) |
-| **메모리 점유율** | 약 **30 ~ 50 MB** | 약 **20 ~ 40 MB** | 약 **25 ~ 50 MB** | 약 **15 ~ 30 MB** |
-| **풍부한 UI 생태계** | ⭐⭐⭐⭐⭐ (웹 생태계 100% 활용) | ⭐⭐⭐ (기본 위젯 중심) | ⭐⭐⭐ (성장 중) | ⭐⭐⭐⭐ (세련된 기본 디자인) |
-| **학습 곡선** | 낮음 (웹 개발 경험자 즉시 적응) | 낮음 (직관적인 함수 호출) | 중간 (Elm MVU 패턴 이해 필요) | 중간 (새로운 DSL 학습 필요) |
-| **추천 용도** | • 상용 데스크톱 SaaS 앱<br>• 노션/슬랙 스타일 협업 도구<br>• 모바일(iOS/Android) 동시 출시 | • 사내 개발 도구/인스펙터<br>• 게임 엔진 에디터<br>• 실시간 3D/차트 시각화 | • 순수 Rust 고집 프로젝트<br>• 크립토 지갑/보안 유틸리티<br>• 가볍고 깔끔한 네이티브 앱 | • 산업용 HMI / 임베디드 디바이스<br>• 의료기기/소형 디스플레이<br>• 데스크톱 경량 유틸리티 |
+### [Phase 1] egui 초경량 즉시 모드(Immediate Mode) GUI 입문
+- 📄 **이론 가이드**: [01_desktop_gui_landscape.md](01_desktop_gui_landscape.md)
+- 📦 **실습 프로젝트**: `projects/desktop/desktop-01-egui-basics`
+- **주요 학습 내용**:
+  - `eframe` (egui framework) 기반 크로스플랫폼 윈도우 창 생성
+  - 즉시 모드(Immediate Mode) 멘탈 모델: 매 프레임 UI를 평가하는 루프 원리
+  - 필수 인터랙티브 위젯: 버튼, 슬라이더, 체크박스, 텍스트 에디터, 콤보박스
+  - 컴포넌트 레이아웃: `CentralPanel`, `TopBottomPanel`, 수평/수직 정렬
+  - 실시간 다크/라이트 테마 스위처 및 폰트 커스터마이징
+  - 순수 비즈니스 로직 단위 테스트 및 `cargo run` 윈도우 실행 검증
+
+### [Phase 2] egui 실시간 모니터링 대시보드 & 비동기 워커 연동
+- 📄 **이론 가이드**: [02_gui_core_mechanisms.md](02_gui_core_mechanisms.md)
+- 📦 **실습 프로젝트**: `projects/desktop/desktop-02-egui-dashboard`
+- **주요 학습 내용**:
+  - **메인 UI 스레드 프리징 차단**: Tokio 비동기 런타임과 백그라운드 워커 스레드 분리
+  - 채널 통신: `std::sync::mpsc`를 통한 워커 $\rightarrow$ UI 논블로킹 데이터 전달
+  - `egui_plot`을 활용한 실시간 CPU / 메모리 점유율 동적 라인 차트
+  - 네이티브 파일 다이얼로그(`rfd`): 시스템 파일 탐색기 열기 및 CSV 데이터 로드/저장
+  - 다중 탭 및 사이드바 분할 레이아웃 구성
+
+### [Phase 3] Iced 순수 Rust 보유 모드(Retained Mode) & Elm 아키텍처
+- 📄 **이론 가이드**: [04_pure_rust_gui_egui_iced.md](04_pure_rust_gui_egui_iced.md)
+- 📦 **실습 프로젝트**: `projects/desktop/desktop-03-iced-todo`
+- **주요 학습 내용**:
+  - 함수형 Elm 아키텍처: `State`, `Message`, `Update`, `View`의 단방향 데이터 흐름
+  - 위젯 트리(Widget Tree) 기반 보유 모드 렌더링 원리
+  - 선언적 레이아웃 매크로: `column![]`, `row![]`, 스크롤 영역, 커스텀 스타일링
+  - 키보드 엔터/ESC 이벤트 핸들링 및 인라인 수정 모드
+  - 로컬 파일(JSON) 영구 저장 및 단위 테스트
+
+### [Phase 4] 상용 표준 Tauri 2.0 입문 (Rust 백엔드 + 모던 웹 UI)
+- 📄 **이론 가이드**: [03_tauri_deep_dive.md](03_tauri_deep_dive.md)
+- 📦 **실습 프로젝트**: `projects/desktop/desktop-04-tauri-basics`
+- **주요 학습 내용**:
+  - Tauri 2.0 아키텍처: `Tao`(윈도우 제어) + `Wry`(OS 내장 웹뷰) + Rust Core
+  - 초고속 IPC: `#[tauri::command]`와 프론트엔드 `invoke()` 간의 타입 안전한 직렬화 통신
+  - 상태 주입: `tauri::State`를 통한 멀티스레드 안전한 인메모리 데이터 공유
+  - 무프레임 창(Frameless Window), 커스텀 타이틀바, 마우스 드래그 창 이동
+  - 프론트엔드 UI(HTML/CSS/JS 또는 앞서 배운 Leptos/Yew) 결합
+
+### [Phase 5] Tauri 2.0 시스템 트레이 & 백그라운드 상주 유틸리티
+- 📄 **이론 가이드**: [03_tauri_deep_dive.md](03_tauri_deep_dive.md), [02_gui_core_mechanisms.md](02_gui_core_mechanisms.md)
+- 📦 **실습 프로젝트**: `projects/desktop/desktop-05-tauri-tray-tool`
+- **주요 학습 내용**:
+  - 윈도우 작업표시줄 우측 시스템 트레이(Tray Icon) 생성 및 커스텀 컨텍스트 메뉴
+  - 창 닫기(`X`) 클릭 시 종료 대신 트레이로 최소화(Hide/Show)
+  - 전역 단축키(`Global Shortcut`): 앱이 백그라운드에 있어도 단축키로 즉시 호출
+  - OS 네이티브 토스트 알림(Notification) 발송
+  - 중복 실행 방지(Single Instance Lock): 중복 실행 시 기존 창을 맨 앞으로 활성화
+
+### [Phase 6] 프로덕션 패키징 & 자동 업데이트 파이프라인
+- 📄 **이론 가이드**: [05_packaging_and_distribution.md](05_packaging_and_distribution.md)
+- 📦 **실습 프로젝트**: 배포 패키징 파이프라인
+- **주요 학습 내용**:
+  - Windows 설치 파일 자동 번들링: NSIS 기반 원클릭 인스톨러(`.exe`) 및 WiX(`.msi`)
+  - 고해상도 앱 아이콘 세팅 (`.ico`, `.png`, `.icns`)
+  - Windows SmartScreen 경고와 코드 서명(Code Signing) 메커니즘
+  - Ed25519 비대칭 암호화 서명 기반 무중단 자동 업데이트(Auto-Updater) 구축
+  - GitHub Actions를 통한 전 플랫폼(Windows/macOS/Linux) 크로스 컴파일 자동 릴리즈
 
 ---
 
-## 3. 데스크톱 앱 개발 시 반드시 알아야 할 5대 핵심 개념
+## 4. 추천 디렉토리 구조
 
-1. **이벤트 루프(Event Loop)와 메인 UI 스레드**:
-   - 윈도우 OS는 모든 창 생성, 마우스/키보드 입력, 화면 그리기를 오직 **메인 스레드**에서만 처리합니다.
-   - 무거운 연산(파일 입출력, 네트워크 통신, DB 쿼리)을 메인 스레드에서 실행하면 즉시 **"응답 없음(Freezing)"**이 발생합니다.
-   - $\rightarrow$ 해결책: Tokio 비동기 런타임 또는 백그라운드 스레드로 작업을 분리하고 채널(`mpsc`)을 통해 UI로 결과를 전달합니다.
-2. **렌더링 파이프라인 (Webview vs GPU Direct)**:
-   - **Tauri/Dioxus**: OS 내장 브라우저 엔진(Windows는 Edge WebView2, macOS는 WebKit)을 재사용하여 Chromium 번들링 없는 15MB 앱을 만듭니다.
-   - **egui/Iced/Slint**: OS 브라우저 엔진 없이, Rust가 `wgpu`를 통해 DirectX 12 / Vulkan / Metal GPU 파이프라인과 직접 대화합니다.
-3. **스레드 간 통신과 상태 공유 (`Send + Sync`)**:
-   - `Arc<Mutex<T>>`, `Arc<RwLock<T>>`를 이용한 멀티스레드 안전한 데이터 관리.
-   - UI 이벤트 발생 시 비동기 명령(Command) 디스패치 및 상태 갱신.
-4. **네이티브 OS API 연동**:
-   - **파일 다이얼로그**: OS 파일 선택기 (`rfd` 크레이트)
-   - **시스템 트레이(System Tray)**: 작업표시줄 우측 트레이 아이콘 및 컨텍스트 메뉴
-   - **전역 단축키(Global Shortcut)**: 앱이 최소화되어 있어도 동작하는 키 바인딩
-   - **자동 업데이트(Auto-Updater)**: 새 버전 릴리즈 시 자동 다운로드 및 패치
-5. **프로덕션 패키징 & 코드 서명 (Code Signing)**:
-   - Windows: NSIS 설치 파일(`.exe`) 및 `.msi` 생성, SmartScreen 방지용 코드 서명
-   - macOS: `.dmg` 생성, Apple 공증(Notarization)
-   - Linux: AppImage, `.deb` 패키징
-
----
-
-## 4. 학습 문서 가이드 인덱스
-
-| 문서 번호 | 파일명 | 핵심 주제 |
-| :---: | :--- | :--- |
-| **01장** | [01_desktop_gui_landscape.md](01_desktop_gui_landscape.md) | **Rust 데스크톱 생태계 지도 & 4대 패러다임 심층 분석** (Tauri, egui, Iced, Slint) |
-| **02장** | [02_gui_core_mechanisms.md](02_gui_core_mechanisms.md) | **데스크톱 앱 개발 필수 메커니즘** (이벤트 루프, 스레딩, GPU 렌더링, OS 연동) |
-| **03장** | [03_tauri_deep_dive.md](03_tauri_deep_dive.md) | **실무 1순위 Tauri 2.0 심층 가이드** (IPC 통신, 보안 권한, Rust-프론트엔드 연동) |
-| **04장** | [04_pure_rust_gui_egui_iced.md](04_pure_rust_gui_egui_iced.md) | **순수 Rust GUI: egui (즉시 모드) & Iced (보유 모드) 실전 패턴** |
-| **05장** | [05_packaging_and_distribution.md](05_packaging_and_distribution.md) | **배포 및 프로덕션 완벽 가이드** (설치 파일 빌드, 자동 업데이트, 코드 서명) |
+```
+rust-sandbox/
+├── docs/
+│   ├── backend/             # 📂 완성된 백엔드 마스터 가이드 (Phase 1 ~ 6)
+│   ├── frontend/            # 📂 완성된 프론트엔드 마스터 가이드 (Phase 1 ~ 6)
+│   └── desktop/             # 📂 데스크톱 GUI 마스터 가이드 (본 로드맵 & 01~05장)
+│       ├── desktop_learning_plan.md
+│       ├── 01_desktop_gui_landscape.md
+│       ├── 02_gui_core_mechanisms.md
+│       ├── 03_tauri_deep_dive.md
+│       ├── 04_pure_rust_gui_egui_iced.md
+│       └── 05_packaging_and_distribution.md
+└── projects/
+    ├── backend/             # 📂 완성된 백엔드 5대 실습 프로젝트
+    ├── frontend/            # 📂 완성된 프론트엔드 6대 실습 프로젝트
+    └── desktop/             # 📂 [NEW] 데스크톱 GUI 실습 프로젝트 모음
+        ├── desktop-01-egui-basics/       # 🚀 Phase 1 예정
+        ├── desktop-02-egui-dashboard/    # 🚀 Phase 2 예정
+        ├── desktop-03-iced-todo/         # 🚀 Phase 3 예정
+        ├── desktop-04-tauri-basics/      # 🚀 Phase 4 예정
+        └── desktop-05-tauri-tray-tool/   # 🚀 Phase 5 예정
+```
