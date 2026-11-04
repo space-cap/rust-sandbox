@@ -1,0 +1,10 @@
+[package]
+name = "wasm-02-yew-counter"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+yew = { version = "0.21", features = ["csr"] }
+wasm-bindgen = "0.2"
+web-sys = { version = "0.3", features = ["Document", "Window", "Element", "HtmlElement"] }
+console_error_panic_hook = "0.1"

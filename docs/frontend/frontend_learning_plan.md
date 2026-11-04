@@ -11,8 +11,8 @@
 | :--- | :--- |
 | **목표** | React/Vue 개발자의 경험을 살려, Rust 기반 WebAssembly 웹 UI 프레임워크와 네이티브 연산 모듈 구축 역량 확보 |
 | **주 기술 스택** | • 웹 기술: **WebAssembly (Wasm)** (브라우저 바이너리 실행 규격)<br>• Rust 브릿지: **wasm-bindgen**, **web-sys**, **js-sys**<br>• 프론트엔드 번들러: **Trunk** (Rust 전용 초고속 Wasm 번들러, 핫 리로딩 지원)<br>• UI 프레임워크: **Yew** (React 스타일 컴포넌트/Hooks), **Leptos** (SolidJS 스타일 초고속 반응성)<br>• 네트워크 & 상태: **gloo-net** (비동기 Fetch), **gloo-storage** (LocalStorage)<br>• 풀스택 연동: 앞서 완성한 **Axum 백엔드**와의 완벽한 엔드투엔드 결합 |
-| **문서 저장 위치** | `c:\workdir\space-cap\rust-sandbox\docs\frontend` |
-| **실습 프로젝트 위치** | `c:\workdir\space-cap\rust-sandbox\projects\frontend` |
+| **문서 저장 위치** | `docs/frontend` |
+| **실습 프로젝트 위치** | `projects/frontend` |
 
 ---
 
@@ -20,7 +20,7 @@
 
 ```mermaid
 flowchart TD
-    F1["Phase 1: Wasm 기초 & Trunk 빌드 환경 ✅<br/>📦 wasm-01-dom-basics"] --> F2["Phase 2: React 스타일의 Yew 프레임워크<br/>📦 wasm-02-yew-counter"]
+    F1["Phase 1: Wasm 기초 & Trunk 빌드 환경 ✅<br/>📦 wasm-01-dom-basics"] --> F2["Phase 2: React 스타일의 Yew 프레임워크 ✅<br/>📦 wasm-02-yew-counter"]
     F2 --> F3["Phase 3: Yew Todo 앱 & 컴포넌트 분리<br/>📦 wasm-03-yew-todo"]
     F3 --> F4["Phase 4: Axum 백엔드 연동 풀스택 통신<br/>📦 wasm-04-fullstack-integration"]
     F4 --> F5["Phase 5: Canvas 2D 고성능 그래픽 연산<br/>📦 wasm-05-performance-canvas"]
@@ -41,14 +41,17 @@ flowchart TD
   - JavaScript 함수와 Rust 함수 상호 호출(FFI) 실습
   - 순수 로직 단위 테스트 3종 통과 & `trunk build` 배포 번들링 검증 완료
 
-### [Phase 2] React 개발자를 위한 Yew 프레임워크 입문
-- **이론 & 핵심 개념**:
+### [Phase 2] React 개발자를 위한 Yew 프레임워크 입문 ✅
+- 📄 **이론 가이드**: [02_yew_component_and_state.md](02_yew_component_and_state.md)
+- 📦 **실습 프로젝트**: [`projects/frontend/wasm-02-yew-counter`](../../projects/frontend/wasm-02-yew-counter)
+- **주요 학습 내용**:
   - React의 JSX와 판박이인 Yew의 **`html! { <div class="card">{ "안녕하세요!" }</div> }`** 매크로 문법
   - 함수형 컴포넌트 정의: `#[function_component(MyComponent)]`
-  - 상태 관리: React의 `useState`와 동일한 `use_state(|| 0)` 훅의 원리
+  - 상태 관리: React의 `useState`와 동일한 `use_state(|| 0)` 훅의 원리와 불변 갱신
   - 이벤트 핸들러: `Callback::from(...)`을 통한 불변성 이벤트 캡처
-- **만들 샘플 프로젝트**: `wasm-02-yew-counter`
-  - 증가, 감소, 초기화 및 다크/라이트 모드 테마 스위처 컴포넌트
+  - 컴포넌트 분리(`Counter`, `HistoryView`, `ThemeToggle`) 및 Props 전달(`#[derive(Properties, PartialEq)]`)
+  - CSS Custom Properties를 연동한 실시간 다크/라이트 테마 스위처
+  - 순수 Rust 상태 전이 단위 테스트 4종 통과 & `trunk build` 번들링 검증 완료
 
 ### [Phase 3] Yew로 완성하는 모던 웹 애플리케이션 (Todo & 컴포넌트 분리)
 - **이론 & 핵심 개념**:
@@ -66,7 +69,7 @@ flowchart TD
     *(TypeScript/Swagger 변환 없이 단일 Rust 모델로 100% 타입 일치!)*
   - CORS 헤더 처리 및 로딩 스피너, 에러 바운더리 UI 처리
 - **만들 샘플 프로젝트**: `wasm-04-fullstack-integration`
-  - 앞서 제작한 [sample-02-rest-crud](file:///c:/workdir/space-cap/rust-sandbox/projects/backend/sample-02-rest-crud) Axum API 서버와 실시간으로 통신하는 Yew 프론트엔드 연동
+  - 앞서 제작한 [sample-02-rest-crud](file:///h:/lee/rust-sandbox/projects/backend/sample-02-rest-crud) Axum API 서버와 실시간으로 통신하는 Yew 프론트엔드 연동
 
 ### [Phase 5] JavaScript 대비 20배 빠른 고성능 그래픽 연산 (Canvas 2D)
 - **이론 & 핵심 개념**:
@@ -92,7 +95,7 @@ flowchart TD
 rust-sandbox/
 ├── docs/
 │   ├── backend/             # 📂 완성된 백엔드 마스터 가이드
-│   └── frontend/            # 📂 [NEW] 프론트엔드 & Wasm 마스터 가이드
+│   └── frontend/            # 📂 프론트엔드 & Wasm 마스터 가이드
 │       ├── frontend_learning_plan.md  # 본 작업계획서
 │       ├── 01_wasm_and_trunk_intro.md
 │       ├── 02_yew_component_and_state.md
@@ -102,21 +105,11 @@ rust-sandbox/
 │       └── 06_leptos_and_deployment.md
 └── projects/
     ├── backend/             # 📂 완성된 백엔드 5대 실습 프로젝트
-    └── frontend/            # 📂 [NEW] 프론트엔드 Wasm 샘플 프로젝트 모음
+    └── frontend/            # 📂 프론트엔드 Wasm 샘플 프로젝트 모음
         ├── wasm-01-dom-basics/           # ✅ Phase 1 완료
-        ├── wasm-02-yew-counter/
+        ├── wasm-02-yew-counter/          # ✅ Phase 2 완료
         ├── wasm-03-yew-todo/
         ├── wasm-04-fullstack-integration/
         ├── wasm-05-performance-canvas/
         └── wasm-06-leptos-showcase/
 ```
-
----
-
-## 4. 확인 및 피드백 요청사항
-
-1. **커리큘럼 구성**: Wasm 기초 ➡️ React 친화적인 Yew ➡️ 앞서 만든 Axum 백엔드와의 풀스택 연동 ➡️ Canvas 고성능 그래픽 ➡️ 차세대 Leptos 순서의 흐름이 마음에 드시나요?
-2. **도구 준비**: Wasm 컴파일을 위해 `wasm32-unknown-unknown` 타깃과 `trunk` 번들러를 사용할 예정입니다. (필요 시 자동으로 명령어 안내)
-
-확인 후 계획대로 시작해도 좋을지 말씀해 주시면, 즉시 **Phase 1: WebAssembly 기초 & Trunk 환경 세팅**에 착수하겠습니다! 🦀🎨✨
-
