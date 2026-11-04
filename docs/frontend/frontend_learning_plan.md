@@ -23,7 +23,7 @@ flowchart TD
     F1["Phase 1: Wasm 기초 & Trunk 빌드 환경 ✅<br/>📦 wasm-01-dom-basics"] --> F2["Phase 2: React 스타일의 Yew 프레임워크 ✅<br/>📦 wasm-02-yew-counter"]
     F2 --> F3["Phase 3: Yew Todo 앱 & 컴포넌트 분리 ✅<br/>📦 wasm-03-yew-todo"]
     F3 --> F4["Phase 4: Axum 백엔드 연동 풀스택 통신 ✅<br/>📦 wasm-04-fullstack-integration"]
-    F4 --> F5["Phase 5: Canvas 2D 고성능 그래픽 연산<br/>📦 wasm-05-performance-canvas"]
+    F4 --> F5["Phase 5: Canvas 2D 고성능 그래픽 연산 ✅<br/>📦 wasm-05-performance-canvas"]
     F5 --> F6["Phase 6: 차세대 Leptos 프레임워크 & 배포<br/>🚀 wasm-06-leptos-showcase"]
 ```
 
@@ -74,13 +74,16 @@ flowchart TD
   - 실시간 연결 상태 인디케이터(🟢 온라인 / 🔴 오프라인), 비동기 로딩 스피너, 에러 배너
   - DTO 직렬화/역직렬화 단위 테스트 3종 통과 & `trunk build` 번들링 검증 완료
 
-### [Phase 5] JavaScript 대비 20배 빠른 고성능 그래픽 연산 (Canvas 2D)
-- **이론 & 핵심 개념**:
-  - JS가 가장 취약한 영역: 수만 개의 객체 물리 연산, 이미지 픽셀 조작, 암호화
-  - `web-sys`를 통한 HTML5 `<canvas>` 2D 컨텍스트 직접 제어
-  - `request_animation_frame`을 이용한 60FPS 논블로킹 렌더링 루프
-- **만들 샘플 프로젝트**: `wasm-05-performance-canvas`
-  - 수천 개의 빛나는 파티클이 마우스를 따라 실시간으로 인터랙션하는 초고속 그래픽 시뮬레이터
+### [Phase 5] JavaScript 대비 20배 빠른 고성능 그래픽 연산 (Canvas 2D) ✅
+- 📄 **이론 가이드**: [05_high_perf_canvas.md](05_high_perf_canvas.md)
+- 📦 **실습 프로젝트**: [`projects/frontend/wasm-05-performance-canvas`](../../projects/frontend/wasm-05-performance-canvas)
+- **주요 학습 내용**:
+  - `web-sys`를 통한 HTML5 `<canvas>` 2D 직접 제어 및 Retina DPI 보정
+  - `gloo-render`의 `request_animation_frame`을 활용한 브라우저 V-Sync 동기화 60FPS 애니메이션 루프
+  - 가비지 컬렉터(GC) 없는 연속 메모리 재사용으로 프레임 드롭(Stuttering) 원천 차단
+  - 4가지 인터랙티브 물리 모드 (인력, 척력, 소용돌이, 유영) 및 마우스 클릭 폭발(Burst)
+  - 근접 입자 간 동적 투명도 성좌(Constellation) 연결선 렌더링
+  - 순수 물리 연산 단위 테스트 4종 통과 & `trunk build` 번들링 검증 완료
 
 ### [Phase 6] 차세대 초고속 프레임워크 Leptos & 정적 배포
 - **이론 & 핵심 개념**:
@@ -113,6 +116,6 @@ rust-sandbox/
         ├── wasm-02-yew-counter/          # ✅ Phase 2 완료
         ├── wasm-03-yew-todo/             # ✅ Phase 3 완료
         ├── wasm-04-fullstack-integration/# ✅ Phase 4 완료
-        ├── wasm-05-performance-canvas/
+        ├── wasm-05-performance-canvas/   # ✅ Phase 5 완료
         └── wasm-06-leptos-showcase/
 ```

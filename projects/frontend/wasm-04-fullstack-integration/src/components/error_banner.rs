@@ -29,3 +29,4 @@ pub fn error_banner(props: &ErrorBannerProps) -> Html {
         html! {}
     }
 }
+

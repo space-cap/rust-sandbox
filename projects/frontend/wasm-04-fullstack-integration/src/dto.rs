@@ -86,3 +86,4 @@ mod tests {
         assert_eq!(json, r#"{"completed":true}"#);
     }
 }
+

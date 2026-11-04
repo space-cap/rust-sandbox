@@ -1,0 +1,359 @@
+/* ==========================================================================
+   Rust Wasm 05: High-Performance Canvas 2D Particle Simulator - Stylesheet
+   ========================================================================== */
+
+:root {
+  --font-sans: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'Fira Code', Consolas, Monaco, monospace;
+
+  --bg-main: #070a12;
+  --bg-card: rgba(14, 20, 36, 0.85);
+  --bg-surface: #0f172a;
+  --bg-hover: rgba(56, 189, 248, 0.12);
+
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-focus: #38bdf8;
+
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --text-dim: #64748b;
+
+  --accent-cyan: #38bdf8;
+  --accent-purple: #a855f7;
+  --accent-green: #34d399;
+  --accent-red: #f87171;
+  --accent-amber: #fbbf24;
+
+  --shadow-card: 0 16px 40px -6px rgba(0, 0, 0, 0.6), 0 0 1px 1px rgba(255, 255, 255, 0.05);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  min-height: 100vh;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* App Container */
+.canvas-app-container {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 4rem;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Masthead */
+.app-masthead {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.brand-badge {
+  display: inline-block;
+  padding: 0.35rem 0.95rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.2), rgba(168, 85, 247, 0.2));
+  color: var(--accent-cyan);
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  border-radius: 9999px;
+  margin-bottom: 0.75rem;
+}
+
+.brand-title {
+  font-size: 2.25rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, #f8fafc 40%, #94a3b8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.brand-subtitle {
+  color: var(--text-muted);
+  font-size: 0.98rem;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+/* Base Card */
+.card {
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--border-subtle);
+  border-radius: 1.15rem;
+  box-shadow: var(--shadow-card);
+}
+
+/* Simulation Layout (Grid) */
+.simulation-layout {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 1.75rem;
+  margin-bottom: 2rem;
+  align-items: start;
+}
+
+@media (max-width: 990px) {
+  .simulation-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Canvas Wrapper */
+.canvas-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  background: #080c16;
+  border: 1px solid rgba(56, 189, 248, 0.2);
+}
+
+#perf-canvas {
+  width: 100%;
+  height: 560px;
+  display: block;
+  cursor: crosshair;
+}
+
+.canvas-hint {
+  padding: 0.65rem 1.25rem;
+  background: rgba(14, 20, 36, 0.8);
+  border-top: 1px solid var(--border-subtle);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+}
+
+/* Control Panel Card */
+.control-panel-card {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.panel-header h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+/* FPS Pill */
+.fps-pill {
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  font-weight: 700;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+}
+
+.fps-smooth {
+  background: rgba(52, 211, 153, 0.15);
+  color: var(--accent-green);
+  border: 1px solid rgba(52, 211, 153, 0.4);
+  box-shadow: 0 0 12px rgba(52, 211, 153, 0.25);
+}
+
+.fps-warn {
+  background: rgba(251, 191, 36, 0.15);
+  color: var(--accent-amber);
+  border: 1px solid rgba(251, 191, 36, 0.4);
+}
+
+.fps-drop {
+  background: rgba(248, 113, 113, 0.15);
+  color: var(--accent-red);
+  border: 1px solid rgba(248, 113, 113, 0.4);
+}
+
+/* Sections */
+.control-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.section-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.count-val {
+  color: var(--accent-cyan);
+  font-family: var(--font-mono);
+}
+
+.speed-val {
+  color: var(--accent-amber);
+  font-family: var(--font-mono);
+}
+
+/* Button Presets */
+.preset-btn-group {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.45rem;
+}
+
+.btn {
+  font-family: var(--font-sans);
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-surface);
+  color: var(--text-muted);
+  border-radius: 0.55rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+
+.btn:hover {
+  background: var(--bg-hover);
+  color: var(--text-main);
+  border-color: var(--border-focus);
+}
+
+.btn.active {
+  background: var(--accent-cyan);
+  color: #070a12;
+  border-color: var(--accent-cyan);
+  font-weight: 700;
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.35);
+}
+
+.btn-preset {
+  padding: 0.5rem 0.2rem;
+  font-size: 0.85rem;
+  font-family: var(--font-mono);
+  text-align: center;
+}
+
+/* Mode Grid */
+.mode-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.55rem;
+}
+
+.btn-mode {
+  padding: 0.65rem 0.5rem;
+  font-size: 0.82rem;
+  text-align: center;
+}
+
+/* Range Slider */
+.range-slider {
+  width: 100%;
+  accent-color: var(--accent-cyan);
+  cursor: pointer;
+}
+
+/* Actions Section */
+.actions-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.btn-toggle {
+  padding: 0.65rem;
+  font-size: 0.85rem;
+}
+
+.btn-burst {
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.2), rgba(248, 113, 113, 0.2));
+  color: var(--accent-amber);
+  border: 1px solid rgba(251, 191, 36, 0.4);
+  padding: 0.75rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.btn-burst:hover {
+  background: var(--accent-amber);
+  color: #070a12;
+  box-shadow: 0 0 16px rgba(251, 191, 36, 0.4);
+}
+
+/* Tip */
+.panel-tip {
+  padding: 0.75rem;
+  background: rgba(56, 189, 248, 0.05);
+  border: 1px dashed rgba(56, 189, 248, 0.25);
+  border-radius: 0.65rem;
+}
+
+.panel-tip p {
+  font-size: 0.8rem;
+  color: var(--accent-cyan);
+  line-height: 1.45;
+}
+
+/* Benchmark Info Card */
+.benchmark-info {
+  padding: 1.75rem;
+}
+
+.benchmark-info h3 {
+  font-size: 1.15rem;
+  margin-bottom: 1.25rem;
+  color: var(--accent-cyan);
+}
+
+.benchmark-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+.bench-col strong {
+  display: block;
+  font-size: 0.92rem;
+  color: var(--text-main);
+  margin-bottom: 0.4rem;
+}
+
+.bench-col p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+
+/* App Bottom */
+.app-bottom {
+  text-align: center;
+  margin-top: 2.5rem;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+}

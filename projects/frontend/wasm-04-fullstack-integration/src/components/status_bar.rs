@@ -72,3 +72,4 @@ pub fn status_bar(props: &StatusBarProps) -> Html {
         </div>
     }
 }
+

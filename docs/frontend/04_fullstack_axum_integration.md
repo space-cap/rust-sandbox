@@ -201,3 +201,4 @@ trunk serve --port 9093
 
 다음 **Phase 5**에서는 자바스크립트가 가장 취약한 **"대규모 수학 연산과 60FPS 실시간 그래픽 렌더링"** 영역으로 들어갑니다!  
 Rust WebAssembly의 네이티브 연산 파워를 이용해 수천 개의 파티클을 마우스와 상호작용시키는 고성능 Canvas 2D 시뮬레이터 **`wasm-05-performance-canvas`**를 구축합니다! 🎨⚡
+

@@ -59,3 +59,4 @@ cargo test -p wasm-04-fullstack-integration
 trunk build --release
 ```
 - `dist/` 폴더에 번들링된 바이너리와 정적 파일이 생성됩니다.
+
