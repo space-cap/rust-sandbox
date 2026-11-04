@@ -17,3 +17,4 @@ pub fn save_todos(todos: &TodoList) {
 pub fn clear_storage() {
     LocalStorage::delete(STORAGE_KEY);
 }
+

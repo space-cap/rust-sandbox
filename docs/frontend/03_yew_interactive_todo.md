@@ -226,3 +226,4 @@ trunk serve --port 9092
 
 다음 **Phase 4**에서는 앞서 백엔드 과정에서 제작했던 **Axum REST API 서버**와 이 Yew 프론트엔드를 연결합니다!  
 TypeScript/Swagger 없이 **프론트엔드와 백엔드가 100% 동일한 Rust 구조체(DTO)를 공유**하는 진정한 "풀스택 Rust"의 마법을 경험하게 됩니다! 🚀
+

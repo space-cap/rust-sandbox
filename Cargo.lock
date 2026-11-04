@@ -2848,6 +2848,20 @@ dependencies = [
 ]
 
 [[package]]
+name = "wasm-04-fullstack-integration"
+version = "0.1.0"
+dependencies = [
+ "console_error_panic_hook",
+ "gloo-net 0.4.0",
+ "serde",
+ "serde_json",
+ "wasm-bindgen",
+ "wasm-bindgen-futures",
+ "web-sys",
+ "yew",
+]
+
+[[package]]
 name = "wasm-bindgen"
 version = "0.2.130"
 source = "registry+https://github.com/rust-lang/crates.io-index"

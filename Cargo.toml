@@ -8,5 +8,6 @@ members = [
     "projects/frontend/wasm-01-dom-basics",
     "projects/frontend/wasm-02-yew-counter",
     "projects/frontend/wasm-03-yew-todo",
+    "projects/frontend/wasm-04-fullstack-integration",
 ]
 resolver = "2"

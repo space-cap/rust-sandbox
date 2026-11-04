@@ -1,0 +1,10 @@
+[watch]
+ignore = ["dist"]
+
+[serve]
+port = 9093
+
+# 프론트엔드 개발 서버(/api/...) 요청을 백엔드 Axum 서버(포트 3001)로 자동 리버스 프록시
+[[proxy]]
+rewrite = "/api"
+backend = "http://127.0.0.1:3001/api"

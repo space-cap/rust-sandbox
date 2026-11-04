@@ -53,3 +53,4 @@ cargo test -p wasm-03-yew-todo
 trunk build --release
 ```
 - `dist/` 폴더에 번들링된 `.wasm` 바이너리와 정적 파일들이 생성됩니다.
+

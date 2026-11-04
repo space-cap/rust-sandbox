@@ -22,7 +22,7 @@
 flowchart TD
     F1["Phase 1: Wasm 기초 & Trunk 빌드 환경 ✅<br/>📦 wasm-01-dom-basics"] --> F2["Phase 2: React 스타일의 Yew 프레임워크 ✅<br/>📦 wasm-02-yew-counter"]
     F2 --> F3["Phase 3: Yew Todo 앱 & 컴포넌트 분리 ✅<br/>📦 wasm-03-yew-todo"]
-    F3 --> F4["Phase 4: Axum 백엔드 연동 풀스택 통신<br/>📦 wasm-04-fullstack-integration"]
+    F3 --> F4["Phase 4: Axum 백엔드 연동 풀스택 통신 ✅<br/>📦 wasm-04-fullstack-integration"]
     F4 --> F5["Phase 5: Canvas 2D 고성능 그래픽 연산<br/>📦 wasm-05-performance-canvas"]
     F5 --> F6["Phase 6: 차세대 Leptos 프레임워크 & 배포<br/>🚀 wasm-06-leptos-showcase"]
 ```
@@ -64,14 +64,15 @@ flowchart TD
   - 필터링(전체/진행 중/완료됨), 일괄 완료 토글, 완료 항목 일괄 삭제
   - 순수 Rust 단위 테스트 4종 통과 & `trunk build` 번들링 검증 완료
 
-### [Phase 4] Rust 백엔드(Axum)와의 풀스택 연동 (End-to-End)
-- **이론 & 핵심 개념**:
-  - 브라우저 비동기 HTTP 클라이언트: `gloo-net`의 `Request::get / post`
+### [Phase 4] Rust 백엔드(Axum)와의 풀스택 연동 (End-to-End) ✅
+- 📄 **이론 가이드**: [04_fullstack_axum_integration.md](04_fullstack_axum_integration.md)
+- 📦 **실습 프로젝트**: [`projects/frontend/wasm-04-fullstack-integration`](../../projects/frontend/wasm-04-fullstack-integration)
+- **주요 학습 내용**:
   - 백엔드와 프론트엔드가 **동일한 Rust 구조체(DTO)를 공유**하는 "풀스택 Rust의 기적"
-    *(TypeScript/Swagger 변환 없이 단일 Rust 모델로 100% 타입 일치!)*
-  - CORS 헤더 처리 및 로딩 스피너, 에러 바운더리 UI 처리
-- **만들 샘플 프로젝트**: `wasm-04-fullstack-integration`
-  - 앞서 제작한 [sample-02-rest-crud](file:///h:/lee/rust-sandbox/projects/backend/sample-02-rest-crud) Axum API 서버와 실시간으로 통신하는 Yew 프론트엔드 연동
+  - `gloo-net`과 `spawn_local`을 활용한 비동기 RESTful CRUD (`GET`, `POST`, `PUT`, `DELETE`)
+  - Trunk 개발 서버 리버스 프록시(`Trunk.toml`)를 통한 브라우저 CORS 문제 해결
+  - 실시간 연결 상태 인디케이터(🟢 온라인 / 🔴 오프라인), 비동기 로딩 스피너, 에러 배너
+  - DTO 직렬화/역직렬화 단위 테스트 3종 통과 & `trunk build` 번들링 검증 완료
 
 ### [Phase 5] JavaScript 대비 20배 빠른 고성능 그래픽 연산 (Canvas 2D)
 - **이론 & 핵심 개념**:
@@ -111,7 +112,7 @@ rust-sandbox/
         ├── wasm-01-dom-basics/           # ✅ Phase 1 완료
         ├── wasm-02-yew-counter/          # ✅ Phase 2 완료
         ├── wasm-03-yew-todo/             # ✅ Phase 3 완료
-        ├── wasm-04-fullstack-integration/
+        ├── wasm-04-fullstack-integration/# ✅ Phase 4 완료
         ├── wasm-05-performance-canvas/
         └── wasm-06-leptos-showcase/
 ```
