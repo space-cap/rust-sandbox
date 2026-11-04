@@ -20,7 +20,7 @@
 
 ```mermaid
 flowchart TD
-    D1["Phase 1: egui 초경량 즉시 모드 입문 ⚡<br/>📦 desktop-01-egui-basics<br/>• eframe 윈도우 생성 & 인터랙티브 위젯"] --> D2["Phase 2: 실시간 데이터 시각화 & 비동기 워커 📊<br/>📦 desktop-02-egui-dashboard<br/>• Tokio 채널 연동, CPU/메모리 차트, 파일 다이얼로그"]
+    D1["Phase 1: egui 초경량 즉시 모드 입문 ✅<br/>📦 desktop-01-egui-basics<br/>• eframe 윈도우 생성 & 인터랙티브 위젯"] --> D2["Phase 2: 실시간 데이터 시각화 & 비동기 워커 📊<br/>📦 desktop-02-egui-dashboard<br/>• Tokio 채널 연동, CPU/메모리 차트, 파일 다이얼로그"]
     
     D2 --> D3["Phase 3: 순수 Rust 보유 모드 (Iced) 🌲<br/>📦 desktop-03-iced-todo<br/>• Elm 아키텍처 (Model-View-Update), 네이티브 위젯 트리"]
     
@@ -35,16 +35,16 @@ flowchart TD
 
 ## 3. 단계별 상세 실습 가이드
 
-### [Phase 1] egui 초경량 즉시 모드(Immediate Mode) GUI 입문
+### [Phase 1] egui 초경량 즉시 모드(Immediate Mode) GUI 입문 ✅
 - 📄 **이론 가이드**: [01_desktop_gui_landscape.md](01_desktop_gui_landscape.md)
-- 📦 **실습 프로젝트**: `projects/desktop/desktop-01-egui-basics`
+- 📦 **실습 프로젝트**: [`projects/desktop/desktop-01-egui-basics`](../../projects/desktop/desktop-01-egui-basics)
 - **주요 학습 내용**:
   - `eframe` (egui framework) 기반 크로스플랫폼 윈도우 창 생성
   - 즉시 모드(Immediate Mode) 멘탈 모델: 매 프레임 UI를 평가하는 루프 원리
   - 필수 인터랙티브 위젯: 버튼, 슬라이더, 체크박스, 텍스트 에디터, 콤보박스
-  - 컴포넌트 레이아웃: `CentralPanel`, `TopBottomPanel`, 수평/수직 정렬
+  - 컴포넌트 레이아웃: `CentralPanel`, `TopBottomPanel`, `SidePanel`, 수평/수직 정렬
   - 실시간 다크/라이트 테마 스위처 및 폰트 커스터마이징
-  - 순수 비즈니스 로직 단위 테스트 및 `cargo run` 윈도우 실행 검증
+  - 순수 비즈니스 로직 단위 테스트 5종 통과 & `cargo run` 윈도우 실행 검증 완료
 
 ### [Phase 2] egui 실시간 모니터링 대시보드 & 비동기 워커 연동
 - 📄 **이론 가이드**: [02_gui_core_mechanisms.md](02_gui_core_mechanisms.md)
