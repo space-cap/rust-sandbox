@@ -85,13 +85,18 @@ flowchart TD
   - 근접 입자 간 동적 투명도 성좌(Constellation) 연결선 렌더링
   - 순수 물리 연산 단위 테스트 4종 통과 & `trunk build` 번들링 검증 완료
 
-### [Phase 6] 차세대 초고속 프레임워크 Leptos & 정적 배포
-- **이론 & 핵심 개념**:
-  - 가상 DOM(Virtual DOM)의 오버헤드를 없앤 SolidJS 스타일의 **세분화된 반응성(Signal)**
-  - 왜 최신 웹 생태계는 Yew에서 Leptos로 진화하고 있는가?
-  - 정적 웹 호스팅(GitHub Pages, Vercel, Netlify)에 Wasm 배포하기
-- **만들 샘플 프로젝트**: `wasm-06-leptos-showcase`
-  - 번개 같은 반응성을 자랑하는 Leptos 쇼케이스 대시보드
+### [Phase 6] 차세대 초고속 프레임워크 Leptos & 정적 배포 ✅
+- 📄 **이론 가이드**: [06_leptos_and_deployment.md](06_leptos_and_deployment.md)
+- 📦 **실습 프로젝트**: [`projects/frontend/wasm-06-leptos-showcase`](../../projects/frontend/wasm-06-leptos-showcase)
+- **주요 학습 내용**:
+  - 가상 DOM(Virtual DOM)의 오버헤드를 0으로 없앤 SolidJS 스타일의 **세분화된 반응성(Signal)** 패러다임
+  - 왜 최신 Rust 웹 생태계는 Yew(React 스타일)에서 Leptos(SolidJS 스타일 직결 DOM 조작)로 진화하고 있는가?
+  - `signal`, `Memo::new`, `Effect::new` 3대 리액티브 프리미티브 체험실
+  - 1,000회 연속 틱 고주파 Wasm 상태 갱신 벤치마크 (1ms 미만 처리)
+  - `<For>` 컴포넌트를 활용한 고성능 컬렉션 렌더링, 실시간 검색/카테고리/정렬 필터
+  - 프로덕션 정적 호스팅 배포: Trunk release 빌드, `wasm-opt -O4` 압축, SPA 404 라우팅 트릭, MIME 헤더
+  - GitHub Actions CI/CD 워크플로우, Vercel(`vercel.json`), Netlify(`netlify.toml`) 템플릿
+  - 순수 Rust 단위 테스트 5종 통과 & `trunk build` 번들링 검증 완료
 
 ---
 
@@ -102,7 +107,7 @@ rust-sandbox/
 ├── docs/
 │   ├── backend/             # 📂 완성된 백엔드 마스터 가이드
 │   └── frontend/            # 📂 프론트엔드 & Wasm 마스터 가이드
-│       ├── frontend_learning_plan.md  # 본 작업계획서
+│       ├── frontend_learning_plan.md  # 본 작업계획서 (전 과정 완료)
 │       ├── 01_wasm_and_trunk_intro.md
 │       ├── 02_yew_component_and_state.md
 │       ├── 03_yew_interactive_todo.md
@@ -111,11 +116,11 @@ rust-sandbox/
 │       └── 06_leptos_and_deployment.md
 └── projects/
     ├── backend/             # 📂 완성된 백엔드 5대 실습 프로젝트
-    └── frontend/            # 📂 프론트엔드 Wasm 샘플 프로젝트 모음
+    └── frontend/            # 📂 프론트엔드 Wasm 실습 프로젝트 (Phase 1 ~ 6 완주)
         ├── wasm-01-dom-basics/           # ✅ Phase 1 완료
         ├── wasm-02-yew-counter/          # ✅ Phase 2 완료
         ├── wasm-03-yew-todo/             # ✅ Phase 3 완료
         ├── wasm-04-fullstack-integration/# ✅ Phase 4 완료
         ├── wasm-05-performance-canvas/   # ✅ Phase 5 완료
-        └── wasm-06-leptos-showcase/
+        └── wasm-06-leptos-showcase/      # ✅ Phase 6 완료
 ```

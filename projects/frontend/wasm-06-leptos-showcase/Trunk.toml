@@ -1,0 +1,12 @@
+# Trunk.toml for wasm-06-leptos-showcase
+[build]
+target = "index.html"
+dist = "dist"
+
+[watch]
+watch = ["src", "styles.css", "index.html"]
+
+[serve]
+port = 9095
+open = false
+
