@@ -14,5 +14,6 @@ members = [
     "projects/desktop/desktop-01-egui-basics",
     "projects/desktop/desktop-02-egui-dashboard",
     "projects/desktop/desktop-03-iced-todo",
+    "projects/desktop/desktop-04-tauri-basics",
 ]
 resolver = "2"

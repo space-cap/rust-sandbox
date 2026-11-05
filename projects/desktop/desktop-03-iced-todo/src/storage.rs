@@ -27,10 +27,10 @@ pub fn load_todos<P: AsRef<Path>>(path: P) -> Result<Vec<TodoItem>, std::io::Err
 /// 최초 실행 시 사용자에게 표시할 안내용 샘플 Todo 목록
 pub fn get_initial_sample_todos() -> Vec<TodoItem> {
     vec![
-        TodoItem::new(1, "🦀 Rust Iced 보유 모드(Retained Mode) 개념 익히기".to_string()),
-        TodoItem::new(2, "🌲 Elm 아키텍처 (Model-View-Update) 단방향 흐름 체험하기".to_string()),
+        TodoItem::new(1, "Rust Iced 보유 모드(Retained Mode) 개념 익히기".to_string()),
+        TodoItem::new(2, "Elm 아키텍처 (Model-View-Update) 단방향 흐름 체험하기".to_string()),
         {
-            let mut done = TodoItem::new(3, "⚡ egui 즉시 모드(Immediate Mode) 마스터하기".to_string());
+            let mut done = TodoItem::new(3, "egui 즉시 모드(Immediate Mode) 마스터하기".to_string());
             done.is_completed = true;
             done
         },

@@ -13,9 +13,9 @@ pub enum Filter {
 impl Filter {
     pub fn label(&self) -> &'static str {
         match self {
-            Self::All => "📋 전체",
-            Self::Active => "⏳ 진행 중",
-            Self::Completed => "✅ 완료",
+            Self::All => "전체",
+            Self::Active => "진행 중",
+            Self::Completed => "완료",
         }
     }
 

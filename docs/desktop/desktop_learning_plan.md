@@ -68,15 +68,16 @@ flowchart TD
   - 로컬 파일(JSON) 영구 저장 및 단위 테스트
   - 맑은 고딕(Malgun Gothic) 폰트 연동 및 단위 테스트 7종 자동 통과 검증 완료
 
-### [Phase 4] 상용 표준 Tauri 2.0 입문 (Rust 백엔드 + 모던 웹 UI)
+### [Phase 4] 상용 표준 Tauri 2.0 입문 (Rust 백엔드 + 모던 웹 UI) ✅
 - 📄 **이론 가이드**: [03_tauri_deep_dive.md](03_tauri_deep_dive.md)
-- 📦 **실습 프로젝트**: `projects/desktop/desktop-04-tauri-basics`
+- 📦 **실습 프로젝트**: [`projects/desktop/desktop-04-tauri-basics`](../../projects/desktop/desktop-04-tauri-basics)
 - **주요 학습 내용**:
   - Tauri 2.0 아키텍처: `Tao`(윈도우 제어) + `Wry`(OS 내장 웹뷰) + Rust Core
   - 초고속 IPC: `#[tauri::command]`와 프론트엔드 `invoke()` 간의 타입 안전한 직렬화 통신
   - 상태 주입: `tauri::State`를 통한 멀티스레드 안전한 인메모리 데이터 공유
   - 무프레임 창(Frameless Window), 커스텀 타이틀바, 마우스 드래그 창 이동
-  - 프론트엔드 UI(HTML/CSS/JS 또는 앞서 배운 Leptos/Yew) 결합
+  - 모던 글래스모피즘 다크 UI(HTML/CSS/JS) 및 실시간 `sys-pulse` 이벤트 스트림
+  - 단위 테스트 7종 자동 통과 및 순수 `cargo run` 실행 환경 구축 완료
 
 ### [Phase 5] Tauri 2.0 시스템 트레이 & 백그라운드 상주 유틸리티
 - 📄 **이론 가이드**: [03_tauri_deep_dive.md](03_tauri_deep_dive.md), [02_gui_core_mechanisms.md](02_gui_core_mechanisms.md)

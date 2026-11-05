@@ -38,7 +38,7 @@ impl TodoApp {
 
     pub fn title(&self) -> String {
         let active_count = self.todos.iter().filter(|t| !t.is_completed).count();
-        format!("Rust Desktop 03: Iced Elm Todo & 프로젝트 관리 🌲 (미완료: {active_count}개)")
+        format!("Rust Desktop 03: Iced Elm Todo & 프로젝트 관리 (미완료: {active_count}개)")
     }
 
     pub fn theme(&self) -> Theme {
@@ -127,10 +127,10 @@ impl TodoApp {
     pub fn view(&self) -> Element<'_, Message> {
         // 1. 상단 헤더 (제목 및 테마 전환)
         let header = row![
-            text("🌲 Rust Iced 데스크톱 Todo")
+            text("Rust Iced 데스크톱 Todo")
                 .size(24),
             horizontal_space(),
-            button(if self.is_dark { "☀️ 라이트 모드" } else { "🌙 다크 모드" })
+            button(if self.is_dark { "라이트 모드" } else { "다크 모드" })
                 .on_press(Message::ToggleTheme),
         ]
         .align_y(Alignment::Center);
@@ -142,7 +142,7 @@ impl TodoApp {
                 .on_submit(Message::AddTodo)
                 .padding(10)
                 .size(16),
-            button("➕ 추가")
+            button("+ 추가")
                 .padding([10, 16])
                 .on_press(Message::AddTodo),
         ]
@@ -170,7 +170,7 @@ impl TodoApp {
         filter_row = filter_row.push(horizontal_space());
         if self.todos.iter().any(|t| t.is_completed) {
             filter_row = filter_row.push(
-                button("🗑️ 완료 항목 정리")
+                button("완료 항목 정리")
                     .padding([6, 12])
                     .on_press(Message::ClearCompleted),
             );
@@ -181,7 +181,7 @@ impl TodoApp {
 
         let todo_list_col: Element<'_, Message> = if filtered_items.is_empty() {
             container(
-                text("표시할 할 일 항목이 없습니다. 새로운 할 일을 추가해보세요! 🦀")
+                text("표시할 할 일 항목이 없습니다. 새로운 할 일을 추가해보세요!")
                     .size(15),
             )
             .padding(30)
@@ -239,8 +239,8 @@ impl TodoApp {
                     .on_submit(Message::FinishEditing(item_id))
                     .padding(8)
                     .size(15),
-                button("💾 저장").padding([6, 10]).on_press(Message::FinishEditing(item_id)),
-                button("❌ 취소").padding([6, 10]).on_press(Message::CancelEditing(item_id)),
+                button("저장").padding([6, 10]).on_press(Message::FinishEditing(item_id)),
+                button("취소").padding([6, 10]).on_press(Message::CancelEditing(item_id)),
             ]
             .spacing(8)
             .align_y(Alignment::Center)
@@ -250,15 +250,17 @@ impl TodoApp {
                 .on_toggle(move |_| Message::ToggleTodo(item_id));
 
             let title_text = if item.is_completed {
-                text(format!("✓ {}", item.title)).size(16)
+                text(&item.title)
+                    .size(16)
+                    .color(iced::Color::from_rgb(0.55, 0.55, 0.55))
             } else {
                 text(&item.title).size(16)
             };
 
             let date_label = text(&item.created_at).size(12);
 
-            let edit_btn = button("✏️").padding([4, 8]).on_press(Message::StartEditing(item_id));
-            let del_btn = button("🗑️").padding([4, 8]).on_press(Message::DeleteTodo(item_id));
+            let edit_btn = button("수정").padding([4, 8]).on_press(Message::StartEditing(item_id));
+            let del_btn = button("삭제").padding([4, 8]).on_press(Message::DeleteTodo(item_id));
 
             container(
                 row![
