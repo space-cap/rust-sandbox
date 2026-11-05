@@ -15,5 +15,7 @@ members = [
     "projects/desktop/desktop-02-egui-dashboard",
     "projects/desktop/desktop-03-iced-todo",
     "projects/desktop/desktop-04-tauri-basics",
+    "projects/desktop/desktop-05-tauri-tray-tool",
+    "projects/desktop/desktop-06-packaging-updater",
 ]
 resolver = "2"

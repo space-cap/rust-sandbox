@@ -79,25 +79,27 @@ flowchart TD
   - 모던 글래스모피즘 다크 UI(HTML/CSS/JS) 및 실시간 `sys-pulse` 이벤트 스트림
   - 단위 테스트 7종 자동 통과 및 순수 `cargo run` 실행 환경 구축 완료
 
-### [Phase 5] Tauri 2.0 시스템 트레이 & 백그라운드 상주 유틸리티
+### [Phase 5] Tauri 2.0 시스템 트레이 & 백그라운드 상주 유틸리티 ✅
 - 📄 **이론 가이드**: [03_tauri_deep_dive.md](03_tauri_deep_dive.md), [02_gui_core_mechanisms.md](02_gui_core_mechanisms.md)
-- 📦 **실습 프로젝트**: `projects/desktop/desktop-05-tauri-tray-tool`
+- 📦 **실습 프로젝트**: [`projects/desktop/desktop-05-tauri-tray-tool`](../../projects/desktop/desktop-05-tauri-tray-tool)
 - **주요 학습 내용**:
   - 윈도우 작업표시줄 우측 시스템 트레이(Tray Icon) 생성 및 커스텀 컨텍스트 메뉴
   - 창 닫기(`X`) 클릭 시 종료 대신 트레이로 최소화(Hide/Show)
   - 전역 단축키(`Global Shortcut`): 앱이 백그라운드에 있어도 단축키로 즉시 호출
   - OS 네이티브 토스트 알림(Notification) 발송
   - 중복 실행 방지(Single Instance Lock): 중복 실행 시 기존 창을 맨 앞으로 활성화
+  - 백그라운드 뽀모도로 타이머 & 클립보드 퀵 메모 상태 동기화 및 단위 테스트 7종 검증 완료
 
-### [Phase 6] 프로덕션 패키징 & 자동 업데이트 파이프라인
+### [Phase 6] 프로덕션 패키징 & 자동 업데이트 파이프라인 ✅
 - 📄 **이론 가이드**: [05_packaging_and_distribution.md](05_packaging_and_distribution.md)
-- 📦 **실습 프로젝트**: 배포 패키징 파이프라인
+- 📦 **실습 프로젝트**: [`projects/desktop/desktop-06-packaging-updater`](../../projects/desktop/desktop-06-packaging-updater)
 - **주요 학습 내용**:
   - Windows 설치 파일 자동 번들링: NSIS 기반 원클릭 인스톨러(`.exe`) 및 WiX(`.msi`)
   - 고해상도 앱 아이콘 세팅 (`.ico`, `.png`, `.icns`)
   - Windows SmartScreen 경고와 코드 서명(Code Signing) 메커니즘
   - Ed25519 비대칭 암호화 서명 기반 무중단 자동 업데이트(Auto-Updater) 구축
   - GitHub Actions를 통한 전 플랫폼(Windows/macOS/Linux) 크로스 컴파일 자동 릴리즈
+  - 서명 검증, 버전 비교, latest.json 매니페스트 직렬화 및 단위 테스트 7종 검증 완료
 
 ---
 
@@ -119,9 +121,10 @@ rust-sandbox/
     ├── backend/             # 📂 완성된 백엔드 5대 실습 프로젝트
     ├── frontend/            # 📂 완성된 프론트엔드 6대 실습 프로젝트
     └── desktop/             # 📂 [NEW] 데스크톱 GUI 실습 프로젝트 모음
-        ├── desktop-01-egui-basics/       # 🚀 Phase 1 예정
-        ├── desktop-02-egui-dashboard/    # 🚀 Phase 2 예정
-        ├── desktop-03-iced-todo/         # 🚀 Phase 3 예정
-        ├── desktop-04-tauri-basics/      # 🚀 Phase 4 예정
-        └── desktop-05-tauri-tray-tool/   # 🚀 Phase 5 예정
+        ├── desktop-01-egui-basics/       # ✅ Phase 1 완성
+        ├── desktop-02-egui-dashboard/    # ✅ Phase 2 완성
+        ├── desktop-03-iced-todo/         # ✅ Phase 3 완성
+        ├── desktop-04-tauri-basics/      # ✅ Phase 4 완성
+        ├── desktop-05-tauri-tray-tool/   # ✅ Phase 5 완성
+        └── desktop-06-packaging-updater/ # ✅ Phase 6 완성
 ```
