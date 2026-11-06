@@ -1,0 +1,17 @@
+[package]
+name = "game-05-particle-effects"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "game_05_particle_effects"
+path = "src/lib.rs"
+
+[[bin]]
+name = "game-05-particle-effects"
+path = "src/main.rs"
+
+[dependencies]
+bevy = { version = "0.20.1", features = ["wav"] }
+rand = "0.8"
+

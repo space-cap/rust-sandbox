@@ -87,35 +87,37 @@ flowchart TD
   - [x] 총알과 적기 충돌 시 폭발 제거 및 글로벌 점수/쉴드 자원(`Resource<GameState>`) 누적
   - [x] 중복 소멸 방지 안전 패턴(`HashSet<Entity>`) 및 헤드리스 단위 테스트 100% 통과
 
-### [Phase 4] 게임 라이프사이클(States), BGM & UI HUD 🎵
+### [Phase 4] 게임 라이프사이클(States), BGM & UI HUD 🎵 (✅ 완료 - 2026-11-06)
 - 📄 **이론 가이드**: `04_states_sound_and_ui.md`
 - 📦 **실습 프로젝트**: `projects/game/game-04-breakout-game` (벽돌깨기 게임)
 - **주요 학습 내용**:
-  - 게임 상태 열거형(`States`): `Menu` $\rightarrow$ `Playing` $\rightarrow$ `Paused` $\rightarrow$ `GameOver`
-  - `OnEnter`, `OnExit`, `run_if(in_state(...))`를 통한 모듈별 시스템 생명주기 격리
-  - 벽돌 충돌 반사각 물리 및 공-패들 상호작용
-  - Bevy Audio: 배경음악(BGM) 루프 재생 및 튕김/파괴 사운드 이펙트(SFX)
-  - Bevy UI 노드 트리: 실시간 점수 텍스트, 남은 목숨 하트 아이콘, 게임오버 재시작 화면
+  - [x] 게임 상태 머신(`States`): `Menu` $\rightarrow$ `Playing` $\rightarrow$ `Paused` $\rightarrow$ `GameOver` $\rightarrow$ `Victory`
+  - [x] `OnEnter`, `OnExit`, `run_if(in_state(...))`를 통한 모듈별 시스템 생명주기 격리
+  - [x] 4색 40개 컬러 벽돌 배치, 공-벽돌 충돌 및 패들 가변 반사각(스킬샷) 물리
+  - [x] Bevy Audio: 절차적 8-bit 레트로 효과음(WAV: 패들 튕김, 벽돌 파괴, 게임오버) 탑재
+  - [x] 실시간 HUD & 목숨 게이지(`[♥♥♥]`), 오버레이 안내 텍스트, 헤드리스 단위 테스트 100% 통과
 
-### [Phase 5] 파티클 폭발 이펙트 & 카메라 쉐이크 (Juice & Polish) ✨
+### [Phase 5] 파티클 폭발 이펙트 & 카메라 쉐이크 (Juice & Polish) ✨ (✅ 완료 - 2026-11-06)
 - 📄 **이론 가이드**: `05_game_juice_and_effects.md`
 - 📦 **실습 프로젝트**: `projects/game/game-05-particle-effects`
 - **주요 학습 내용**:
-  - 게임의 손맛(Juice)을 결정짓는 연출 테크닉
-  - 수백 개의 잔상 파티클(Particle) 생성, 속도 감쇠, 투명도 페이드아웃, 수명 타이머
-  - 충돌 및 폭발 시 화면이 흔들리는 카메라 쉐이크(Camera Shake) 노이즈 시스템
-  - 강한 타격 시 순간적으로 게임이 0.05초 멈추는 히트스톱(Hitstop) & 슬로우 모션
-  - `Gizmos`: 디버그용 충돌 박스 및 이동 궤적 실시간 시각화
+  - [x] 게임의 손맛(Juice)을 결정짓는 연출 테크닉: 반동, 충격, 시각적 보상
+  - [x] 45-개체 방사형 파티클(Particle) 버스트, 공기 저항 Drag($\times 0.91$), 투명도 페이드아웃, 수명 타이머
+  - [x] 트라우마 2차 곡선 모델($\text{Trauma}^2$) 기반 카메라 쉐이크(Camera Shake) 노이즈 & 원점 감쇠
+  - [x] 강한 타격 시 순간적으로 0.06초간 물리 시뮬레이션이 멈추는 히트스톱(Hitstop / Impact Freeze)
+  - [x] `Gizmos`: 디버그용 AABB 충돌 박스(선택 색상) 및 파티클 실시간 속도 벡터 시각화 (`[G]` 토글)
+  - [x] 실시간 주스 통계 HUD(타깃 파괴, 파티클 수, Trauma 수치, 기즈모 상태), 헤드리스 단위 테스트 100% 통과
 
-### [Phase 6] 종합 실전: 2D 서바이벌 아레나 (Vampire Survivor 류) ⚔️
+### [Phase 6] 종합 실전: 2D 서바이벌 아레나 (Vampire Survivor 류) ⚔️ (✅ 완료 - 2026-11-06)
 - 📄 **이론 가이드**: `06_full_survival_game.md`
 - 📦 **실습 프로젝트**: `projects/game/game-06-survival-arena`
 - **주요 학습 내용**:
-  - 수백 마리의 언데드 몬스터가 플레이어를 추적하는 벡터 스티어링(Steering) AI
-  - 플레이어 주변을 회전하는 마법 칼날 & 가장 가까운 적을 조준하는 자동 유도 화살
-  - 경험치 보석(Gem) 드랍, 마그넷 흡수, 레벨업 시스템
-  - 레벨업 시 게임 일시정지 및 3지선다 스킬 카드 선택 UI
-  - 생존 시간 타이머, 처치 수 집계 및 로컬 최고 기록(JSON) 영구 저장
+  - [x] 수백 마리의 언데드 몬스터가 플레이어를 추적하는 벡터 스티어링(Steering) AI 및 점진적 난이도 스케일링
+  - [x] 플레이어 주변을 회전하는 마법 칼날(삼각함수 공전) & 가장 가까운 적을 조준하는 자동 유도 번개 화살
+  - [x] 경험치 보석(Gem) 드랍, 마그넷 가속 흡수, 레벨업 시스템
+  - [x] 레벨업 시 게임 완전 일시정지 및 3지선다 스킬 카드 선택 UI (`[1]`, `[2]`, `[3]`)
+  - [x] 생존 시간 타이머, 처치 수 집계 및 `serde_json` 기반 로컬 최고 기록 영구 저장/복원
+  - [x] 4대 상태 머신(`Menu` $\leftrightarrow$ `Playing` $\leftrightarrow$ `LevelUp` $\leftrightarrow$ `GameOver`) 및 헤드리스 단위 테스트 100% 통과
 
 ---
 
@@ -127,7 +129,7 @@ rust-sandbox/
 │   ├── backend/             # 📂 완성된 백엔드 마스터 가이드 (Phase 1 ~ 6)
 │   ├── frontend/            # 📂 완성된 프론트엔드 마스터 가이드 (Phase 1 ~ 6)
 │   ├── desktop/             # 📂 완성된 데스크톱 GUI 마스터 가이드 (Phase 1 ~ 6)
-│   └── game/                # 📂 [NEW] Bevy 게임 엔진 마스터 가이드
+│   └── game/                # 📂 [완성] Bevy 게임 엔진 마스터 가이드 (Phase 1 ~ 6 전 과정 마스터!)
 │       ├── game_learning_plan.md
 │       ├── 01_bevy_and_ecs_philosophy.md
 │       ├── 02_2d_rendering_and_assets.md
@@ -139,12 +141,12 @@ rust-sandbox/
     ├── backend/             # 📂 5대 백엔드 프로젝트
     ├── frontend/            # 📂 6대 프론트엔드 Wasm 프로젝트
     ├── desktop/             # 📂 6대 데스크톱 GUI 프로젝트
-    └── game/                # 📂 [NEW] Bevy 게임 실습 프로젝트 모음
+    └── game/                # 📂 [완성] Bevy 게임 실습 프로젝트 모음 (Phase 1 ~ 6 전 프로젝트 완비)
         ├── game-01-bevy-basics/       # ✅ Phase 1 완료 (ECS 2D 기초, 이동, HUD, 테스트)
         ├── game-02-sprite-animation/  # ✅ Phase 2 완료 (스프라이트 시트, 아틀라스, 프레임 애니메이션)
         ├── game-03-space-shooter/     # ✅ Phase 3 완료 (우주 탄막 슈팅, AABB 물리 충돌, 별무리 배경)
-        ├── game-04-breakout-game/     # 🚀 Phase 4 예정
-        ├── game-05-particle-effects/  # 🚀 Phase 5 예정
-        └── game-06-survival-arena/    # 🚀 Phase 6 예정
+        ├── game-04-breakout-game/     # ✅ Phase 4 완료 (벽돌깨기, 게임 상태 머신, 가변 반사각, 8-bit 오디오)
+        ├── game-05-particle-effects/  # ✅ Phase 5 완료 (파티클 버스트, 트라우마 카메라 쉐이크, 히트스톱, 기즈모)
+        └── game-06-survival-arena/    # ✅ Phase 6 완료 (뱀파이어 서바이벌 류 종합 실전, 자동 무기, 레벨업, 영구 저장)
 ```
 

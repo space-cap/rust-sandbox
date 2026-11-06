@@ -1,0 +1,16 @@
+[package]
+name = "game-04-breakout-game"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "game_04_breakout_game"
+path = "src/lib.rs"
+
+[[bin]]
+name = "game-04-breakout-game"
+path = "src/main.rs"
+
+[dependencies]
+bevy = { version = "0.20.1", features = ["wav"] }
+

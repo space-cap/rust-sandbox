@@ -20,5 +20,8 @@ members = [
     "projects/game/game-01-bevy-basics",
     "projects/game/game-02-sprite-animation",
     "projects/game/game-03-space-shooter",
+    "projects/game/game-04-breakout-game",
+    "projects/game/game-05-particle-effects",
+    "projects/game/game-06-survival-arena",
 ]
 resolver = "2"
