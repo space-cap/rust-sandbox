@@ -2,6 +2,7 @@ use bevy::prelude::*;
 use crate::components::{
     CameraShake, Collider2d, Enemy, FloatingDamageText, HolyWaterPool, HomingArrow,
     ImageAssets, OrbitBlade, ParabolicAxe, Particle, Player, PlayerStats, SoundAssets, Velocity,
+    WeaponDamageStats,
 };
 use rand::Rng;
 use std::f32::consts::PI;
@@ -11,6 +12,7 @@ pub fn orbit_blade_system(
     mut commands: Commands,
     time: Res<Time>,
     mut shake: ResMut<CameraShake>,
+    mut damage_stats: ResMut<WeaponDamageStats>,
     player_query: Query<&Transform, With<Player>>,
     mut blade_query: Query<(&mut Transform, &mut OrbitBlade, &Collider2d), Without<Player>>,
     mut enemy_query: Query<(Entity, &Transform, &Collider2d, &mut Enemy), (Without<Player>, Without<OrbitBlade>)>,
@@ -51,6 +53,7 @@ pub fn orbit_blade_system(
 
                 let dmg = blade.damage * time.delta_secs() * 3.8;
                 enemy.health -= dmg;
+                damage_stats.orbit_blade_damage += dmg;
 
                 // 스파크 파티클
                 let p_vel = Vec2::new(rng.gen_range(-50.0..50.0), rng.gen_range(-50.0..50.0));
@@ -135,6 +138,7 @@ pub fn homing_arrow_movement_system(
     sounds: Res<SoundAssets>,
     mut shake: ResMut<CameraShake>,
     asset_server: Res<AssetServer>,
+    mut damage_stats: ResMut<WeaponDamageStats>,
     mut arrow_query: Query<(Entity, &mut Transform, &mut HomingArrow, &Velocity, &Collider2d), Without<Enemy>>,
     mut enemy_query: Query<(Entity, &Transform, &Collider2d, &mut Enemy), Without<HomingArrow>>,
 ) {
@@ -173,6 +177,7 @@ pub fn homing_arrow_movement_system(
                 };
 
                 enemy.health -= actual_damage;
+                damage_stats.homing_arrow_damage += actual_damage;
                 commands.entity(arrow_e).despawn();
 
                 // 플로팅 데미지 텍스트 스폰
@@ -228,6 +233,7 @@ pub fn holy_water_spawner_and_damage_system(
     time: Res<Time>,
     sounds: Res<SoundAssets>,
     images: Res<ImageAssets>,
+    mut damage_stats: ResMut<WeaponDamageStats>,
     mut player_query: Query<(&Transform, &mut PlayerStats), With<Player>>,
     mut pool_query: Query<(Entity, &Transform, &mut HolyWaterPool)>,
     mut enemy_query: Query<(&Transform, &mut Enemy), Without<Player>>,
@@ -299,6 +305,7 @@ pub fn holy_water_spawner_and_damage_system(
                 let dist = enemy_tf.translation.truncate().distance(pool_pos);
                 if dist <= pool.radius {
                     enemy.health -= pool.damage;
+                    damage_stats.holy_water_damage += pool.damage;
 
                     // 불꽃 파티클
                     commands.spawn((
@@ -322,6 +329,7 @@ pub fn parabolic_axe_system(
     mut commands: Commands,
     time: Res<Time>,
     sounds: Res<SoundAssets>,
+    mut damage_stats: ResMut<WeaponDamageStats>,
     mut player_query: Query<(&Transform, &mut PlayerStats), With<Player>>,
     mut axe_query: Query<(Entity, &mut Transform, &mut ParabolicAxe, &Collider2d), Without<Player>>,
     mut enemy_query: Query<(&Transform, &Collider2d, &mut Enemy), (Without<Player>, Without<ParabolicAxe>)>,
@@ -382,7 +390,9 @@ pub fn parabolic_axe_system(
             let enemy_pos = enemy_tf.translation.truncate();
 
             if axe_col.intersects(axe_pos, enemy_col, enemy_pos) {
-                enemy.health -= axe.damage * time.delta_secs() * 4.0;
+                let dmg = axe.damage * time.delta_secs() * 4.0;
+                enemy.health -= dmg;
+                damage_stats.parabolic_axe_damage += dmg;
             }
         }
     }

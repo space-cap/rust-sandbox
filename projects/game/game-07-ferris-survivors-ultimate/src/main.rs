@@ -129,5 +129,39 @@ mod tests {
 
         let _ = std::fs::remove_file(file_path);
     }
+
+    #[test]
+    fn test_weapon_damage_stats_meter() {
+        use game_07_ferris_survivors_ultimate::components::WeaponDamageStats;
+
+        let mut stats = WeaponDamageStats::default();
+        stats.orbit_blade_damage = 400.0;
+        stats.homing_arrow_damage = 300.0;
+        stats.holy_water_damage = 200.0;
+        stats.parabolic_axe_damage = 100.0;
+
+        assert_eq!(stats.total_damage(), 1000.0);
+        let blade_pct = (stats.orbit_blade_damage / stats.total_damage()) * 100.0;
+        assert_eq!(blade_pct, 40.0);
+    }
+
+    #[test]
+    fn test_bestiary_browser_cycling() {
+        use game_07_ferris_survivors_ultimate::components::BestiaryBrowserState;
+
+        let mut browser = BestiaryBrowserState::default();
+        assert_eq!(browser.entries.len(), 400);
+        assert_eq!(browser.current_index, 0);
+
+        // 이전 몬스터 순환 (0 -> 399)
+        if browser.current_index == 0 {
+            browser.current_index = browser.entries.len() - 1;
+        }
+        assert_eq!(browser.current_index, 399);
+
+        // 다음 몬스터 순환 (399 -> 0)
+        browser.current_index = (browser.current_index + 1) % browser.entries.len();
+        assert_eq!(browser.current_index, 0);
+    }
 }
 

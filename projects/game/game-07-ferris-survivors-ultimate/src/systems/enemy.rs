@@ -150,10 +150,12 @@ pub fn boss_spawn_system(
     survival_stats: Res<SurvivalStats>,
     mut boss_manager: ResMut<BossManager>,
     mut shake: ResMut<CameraShake>,
+    mut next_state: ResMut<NextState<AppState>>,
     mut bar_root_query: Query<&mut Transform, With<BossHpBarRoot>>,
 ) {
     if survival_stats.survival_time >= 90.0 && !boss_manager.spawned {
         boss_manager.spawned = true;
+        next_state.set(AppState::BossIntro);
 
         let boss_sprite = if let Some(ref img) = images.boss_titan {
             Sprite {
@@ -353,6 +355,7 @@ pub fn enemy_death_and_affix_system(
     mut shake: ResMut<CameraShake>,
     mut boss_manager: ResMut<BossManager>,
     images: Res<ImageAssets>,
+    mut next_state: ResMut<NextState<AppState>>,
     query: Query<(Entity, &Transform, &Enemy), Without<BossHpBarRoot>>,
     mut bar_root_query: Query<&mut Transform, (With<BossHpBarRoot>, Without<Enemy>)>,
 ) {
@@ -370,6 +373,7 @@ pub fn enemy_death_and_affix_system(
             if enemy.is_boss {
                 boss_manager.defeated = true;
                 bestiary.boss_kills += 1;
+                next_state.set(AppState::Victory);
 
                 // 보스바 화면 밖으로 숨김
                 for mut bar_tf in bar_root_query.iter_mut() {

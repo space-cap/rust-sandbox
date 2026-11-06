@@ -2,14 +2,19 @@ use bevy::prelude::*;
 use serde::{Deserialize, Serialize};
 use std::collections::HashSet;
 
-/// 게임의 4대 상태 머신
+/// 게임의 8대 씬(Scene) 상태 머신
 #[derive(States, Default, Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub enum AppState {
     #[default]
-    Menu,
-    Playing,
-    LevelUp,
-    GameOver,
+    Title,       // 1. 메인 타이틀 씬
+    Bestiary,    // 2. 100종 몬스터 도감 씬
+    Tutorial,    // 3. 조작법 & 4대 무기 튜토리얼 씬
+    Playing,     // 4. 인게임 본 전투 씬
+    Paused,      // 5. 인게임 일시정지 씬 (ESC)
+    LevelUp,     // 6. 레벨업 3지선다 카드 모달 씬
+    BossIntro,   // 7. 90초 타이탄 보스 강림 컷씬
+    Victory,     // 8. 보스 격파 승리 축포 씬
+    GameOver,    // 9. 패배 및 무기별 DPS 정산 씬
 }
 
 /// 10대 기본 몬스터 종족 실루엣
@@ -382,6 +387,27 @@ pub struct BossHpBarFill;
 pub struct BossHpBarText;
 
 #[derive(Component, Debug, Clone, Copy)]
+pub struct TitleSceneRoot;
+
+#[derive(Component, Debug, Clone, Copy)]
+pub struct TitleLogoBanner;
+
+#[derive(Component, Debug, Clone, Copy)]
+pub struct BestiarySceneRoot;
+
+#[derive(Component, Debug, Clone, Copy)]
+pub struct TutorialSceneRoot;
+
+#[derive(Component, Debug, Clone, Copy)]
+pub struct PausedSceneRoot;
+
+#[derive(Component, Debug, Clone, Copy)]
+pub struct BossIntroSceneRoot;
+
+#[derive(Component, Debug, Clone, Copy)]
+pub struct VictorySceneRoot;
+
+#[derive(Component, Debug, Clone, Copy)]
 pub struct MenuUi;
 
 #[derive(Component, Debug, Clone, Copy)]
@@ -389,6 +415,70 @@ pub struct LevelUpUi;
 
 #[derive(Component, Debug, Clone, Copy)]
 pub struct GameOverUi;
+
+/// 4대 무기별 누적 데미지 추적 리소스
+#[derive(Resource, Default, Debug, Clone)]
+pub struct WeaponDamageStats {
+    pub orbit_blade_damage: f32,
+    pub homing_arrow_damage: f32,
+    pub holy_water_damage: f32,
+    pub parabolic_axe_damage: f32,
+}
+
+impl WeaponDamageStats {
+    pub fn total_damage(&self) -> f32 {
+        self.orbit_blade_damage
+            + self.homing_arrow_damage
+            + self.holy_water_damage
+            + self.parabolic_axe_damage
+    }
+}
+
+/// 100종 도감 뷰어 상태 리소스
+#[derive(Resource, Debug, Clone)]
+pub struct BestiaryBrowserState {
+    pub current_index: usize,
+    pub entries: Vec<(MonsterArchetype, MonsterElement, MonsterAffix)>,
+}
+
+impl Default for BestiaryBrowserState {
+    fn default() -> Self {
+        let mut entries = Vec::new();
+        for archetype in MonsterArchetype::all() {
+            for element in MonsterElement::all() {
+                for affix in MonsterAffix::all() {
+                    entries.push((archetype, element, affix));
+                }
+            }
+        }
+        Self {
+            current_index: 0,
+            entries,
+        }
+    }
+}
+
+/// 보스 강림 컷씬 타이머 리소스 (2.5초)
+#[derive(Resource, Debug, Clone)]
+pub struct BossIntroTimer(pub Timer);
+
+impl Default for BossIntroTimer {
+    fn default() -> Self {
+        Self(Timer::from_seconds(2.5, TimerMode::Once))
+    }
+}
+
+/// 오디오 설정 리소스
+#[derive(Resource, Debug, Clone)]
+pub struct AudioSettings {
+    pub sfx_enabled: bool,
+}
+
+impl Default for AudioSettings {
+    fn default() -> Self {
+        Self { sfx_enabled: true }
+    }
+}
 
 // -------------------------------------------------------------------------
 // 리소스 정의

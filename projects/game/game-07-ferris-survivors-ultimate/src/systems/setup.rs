@@ -1,9 +1,10 @@
 use bevy::prelude::*;
 use crate::components::{
-    AnimationIndices, AnimationTimer, BossHpBarFill, BossHpBarRoot, BossHpBarText, BossManager,
-    Collider2d, EnemySpawnTimer, FerrisSpriteAssets, GameRecord, HitstopTimer, HudDashText,
-    HudExpText, HudHealthText, HudTimeKillsText, ImageAssets, MonsterBestiary, OrbitBlade,
-    Player, PlayerFacing, PlayerStats, SoundAssets, SurvivalStats, UpgradeChoices,
+    AnimationIndices, AnimationTimer, AudioSettings, BestiaryBrowserState, BossHpBarFill,
+    BossHpBarRoot, BossHpBarText, BossIntroTimer, BossManager, Collider2d, EnemySpawnTimer,
+    FerrisSpriteAssets, GameRecord, HitstopTimer, HudDashText, HudExpText, HudHealthText,
+    HudTimeKillsText, ImageAssets, MonsterBestiary, OrbitBlade, Player, PlayerFacing, PlayerStats,
+    SoundAssets, SurvivalStats, UpgradeChoices, WeaponDamageStats,
 };
 
 /// 게임의 기본 환경(카메라, 에셋, 바닥 타일맵, HUD, 보스바) 초기화
@@ -62,6 +63,10 @@ pub fn setup_game(
     commands.insert_resource(EnemySpawnTimer(Timer::from_seconds(0.9, TimerMode::Repeating)));
     commands.insert_resource(HitstopTimer { timer: None });
     commands.insert_resource(UpgradeChoices::default());
+    commands.insert_resource(WeaponDamageStats::default());
+    commands.insert_resource(BestiaryBrowserState::default());
+    commands.insert_resource(BossIntroTimer::default());
+    commands.insert_resource(AudioSettings::default());
 
     // 6. 로컬 최고 기록 로드
     let record = GameRecord::load_or_default("assets/save/ultimate_records.json");
