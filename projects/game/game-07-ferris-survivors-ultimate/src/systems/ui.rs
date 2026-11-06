@@ -2,7 +2,7 @@ use bevy::prelude::*;
 use crate::components::{
     AppState, BossHpBarFill, BossHpBarText, BossManager, BossProjectile, BossTitan, Collider2d,
     Enemy, ExpGem, FloatingDamageText, GameOverUi, GameRecord, GhostTrail, HolyWaterPool,
-    HomingArrow, HudDashText, HudExpText, HudHealthText, HudTimeKillsText, LevelUpUi, MenuUi,
+    HomingArrow, HudDashText, HudExpText, HudHealthText, HudTimeKillsText, ImageAssets, LevelUpUi, MenuUi,
     MonsterBestiary, OrbitBlade, ParabolicAxe, Particle, Player, PlayerStats, SurvivalStats,
     UpgradeChoices, UpgradeType,
 };
@@ -110,7 +110,11 @@ pub fn floating_damage_text_system(
 // 메인 메뉴
 // =========================================================================
 
-pub fn setup_menu_ui(mut commands: Commands, asset_server: Res<AssetServer>) {
+pub fn setup_menu_ui(
+    mut commands: Commands,
+    asset_server: Res<AssetServer>,
+    images: Option<Res<ImageAssets>>,
+) {
     let font = asset_server.load("fonts/malgun.ttf");
 
     commands.spawn((
@@ -118,6 +122,20 @@ pub fn setup_menu_ui(mut commands: Commands, asset_server: Res<AssetServer>) {
         Sprite::from_color(Color::srgba(0.02, 0.03, 0.08, 0.90), Vec2::new(960.0, 600.0)),
         Transform::from_xyz(0.0, 0.0, 10.0),
     ));
+
+    if let Some(img_assets) = images {
+        if let Some(ref banner) = img_assets.title_banner {
+            commands.spawn((
+                MenuUi,
+                Sprite {
+                    image: banner.clone(),
+                    custom_size: Some(Vec2::new(540.0, 150.0)),
+                    ..default()
+                },
+                Transform::from_xyz(0.0, 150.0, 10.5),
+            ));
+        }
+    }
 
     commands.spawn((
         MenuUi,
@@ -132,11 +150,11 @@ pub fn setup_menu_ui(mut commands: Commands, asset_server: Res<AssetServer>) {
         ),
         TextFont {
             font: font.into(),
-            font_size: bevy::text::FontSize::Px(18.0),
+            font_size: bevy::text::FontSize::Px(16.0),
             ..default()
         },
         TextColor(Color::srgb(0.95, 0.95, 1.0)),
-        Transform::from_xyz(0.0, 0.0, 11.0),
+        Transform::from_xyz(0.0, -50.0, 11.0),
     ));
 }
 

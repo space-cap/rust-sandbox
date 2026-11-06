@@ -1,7 +1,7 @@
 use bevy::prelude::*;
 use crate::components::{
     AppState, BossHpBarRoot, BossManager, BossProjectile, BossTitan, CameraShake, Collider2d,
-    Enemy, EnemySpawnTimer, ExpGem, MonsterAffix, MonsterArchetype, MonsterBestiary,
+    Enemy, EnemySpawnTimer, ExpGem, ImageAssets, MonsterAffix, MonsterArchetype, MonsterBestiary,
     MonsterElement, Particle, Player, PlayerStats, SoundAssets, SurvivalStats, Velocity,
 };
 use rand::Rng;
@@ -14,6 +14,7 @@ pub fn enemy_spawn_system(
     survival_stats: Res<SurvivalStats>,
     mut spawn_timer: ResMut<EnemySpawnTimer>,
     mut bestiary: ResMut<MonsterBestiary>,
+    images: Res<ImageAssets>,
 ) {
     spawn_timer.0.tick(time.delta());
 
@@ -90,6 +91,30 @@ pub fn enemy_spawn_system(
             element.color_tint()
         };
 
+        // 종족에 맞는 제미나이 몬스터 이미지 할당
+        let monster_image = match archetype {
+            MonsterArchetype::Slime | MonsterArchetype::Spider | MonsterArchetype::Mimic => {
+                images.enemy_slime.clone()
+            }
+            MonsterArchetype::Bat | MonsterArchetype::Ghost | MonsterArchetype::Dragon => {
+                images.enemy_bat.clone()
+            }
+            MonsterArchetype::Golem | MonsterArchetype::Skeleton | MonsterArchetype::Goblin | MonsterArchetype::Warlock => {
+                images.enemy_golem.clone()
+            }
+        };
+
+        let sprite = if let Some(img) = monster_image {
+            Sprite {
+                image: img,
+                color,
+                custom_size: Some(final_size * 1.3),
+                ..default()
+            }
+        } else {
+            Sprite::from_color(color, final_size)
+        };
+
         commands.spawn((
             Enemy {
                 name,
@@ -106,7 +131,7 @@ pub fn enemy_spawn_system(
                 is_boss: false,
             },
             Collider2d::new(final_size.x, final_size.y),
-            Sprite::from_color(color, final_size),
+            sprite,
             Transform::from_xyz(spawn_x, spawn_y, 1.8),
         ));
 
@@ -121,6 +146,7 @@ pub fn enemy_spawn_system(
 pub fn boss_spawn_system(
     mut commands: Commands,
     sounds: Res<SoundAssets>,
+    images: Res<ImageAssets>,
     survival_stats: Res<SurvivalStats>,
     mut boss_manager: ResMut<BossManager>,
     mut shake: ResMut<CameraShake>,
@@ -128,6 +154,19 @@ pub fn boss_spawn_system(
 ) {
     if survival_stats.survival_time >= 90.0 && !boss_manager.spawned {
         boss_manager.spawned = true;
+
+        let boss_sprite = if let Some(ref img) = images.boss_titan {
+            Sprite {
+                image: img.clone(),
+                custom_size: Some(Vec2::new(110.0, 110.0)),
+                ..default()
+            }
+        } else {
+            Sprite::from_color(
+                Color::srgb(0.8, 0.1, 0.2),
+                Vec2::new(75.0, 75.0),
+            )
+        };
 
         // 보스 스폰
         let boss_entity = commands.spawn((
@@ -150,10 +189,7 @@ pub fn boss_spawn_system(
                 is_boss: true,
             },
             Collider2d::new(75.0, 75.0),
-            Sprite::from_color(
-                Color::srgb(0.8, 0.1, 0.2), // 거대 블러드 레드 보스
-                Vec2::new(75.0, 75.0),
-            ),
+            boss_sprite,
             Transform::from_xyz(0.0, 230.0, 2.2),
         )).id();
 
@@ -316,6 +352,7 @@ pub fn enemy_death_and_affix_system(
     mut bestiary: ResMut<MonsterBestiary>,
     mut shake: ResMut<CameraShake>,
     mut boss_manager: ResMut<BossManager>,
+    images: Res<ImageAssets>,
     query: Query<(Entity, &Transform, &Enemy), Without<BossHpBarRoot>>,
     mut bar_root_query: Query<&mut Transform, (With<BossHpBarRoot>, Without<Enemy>)>,
 ) {
@@ -360,6 +397,16 @@ pub fn enemy_death_and_affix_system(
                 // 루비 보석 8개 드랍
                 for _ in 0..8 {
                     let offset = Vec2::new(rng.gen_range(-40.0..40.0), rng.gen_range(-40.0..40.0));
+                    let gem_sprite = if let Some(ref ruby_img) = images.gem_ruby {
+                        Sprite {
+                            image: ruby_img.clone(),
+                            custom_size: Some(Vec2::splat(18.0)),
+                            ..default()
+                        }
+                    } else {
+                        Sprite::from_color(Color::srgb(1.0, 0.1, 0.3), Vec2::splat(14.0))
+                    };
+
                     commands.spawn((
                         ExpGem {
                             value: 35.0,
@@ -367,7 +414,7 @@ pub fn enemy_death_and_affix_system(
                             is_attracted: false,
                         },
                         Collider2d::new(16.0, 16.0),
-                        Sprite::from_color(Color::srgb(1.0, 0.1, 0.3), Vec2::splat(14.0)),
+                        gem_sprite,
                         Transform::from_xyz(pos.x + offset.x, pos.y + offset.y, 1.6),
                     ));
                 }
@@ -397,10 +444,33 @@ pub fn enemy_death_and_affix_system(
                 }
             }
 
-            // 3. 분열(Splitting) 기믹: 2마리 미니 슬라임/고블린 분열
+            // 3. 분열(Splitting) 기믹: 2마리 미니 분열
             if enemy.affix == MonsterAffix::Splitting {
+                let mini_img = match enemy.archetype {
+                    MonsterArchetype::Slime | MonsterArchetype::Spider | MonsterArchetype::Mimic => {
+                        images.enemy_slime.clone()
+                    }
+                    MonsterArchetype::Bat | MonsterArchetype::Ghost | MonsterArchetype::Dragon => {
+                        images.enemy_bat.clone()
+                    }
+                    MonsterArchetype::Golem | MonsterArchetype::Skeleton | MonsterArchetype::Goblin | MonsterArchetype::Warlock => {
+                        images.enemy_golem.clone()
+                    }
+                };
+
                 for i in 0..2 {
                     let offset_x = if i == 0 { -18.0 } else { 18.0 };
+                    let mini_sprite = if let Some(ref img) = mini_img {
+                        Sprite {
+                            image: img.clone(),
+                            color: enemy.element.color_tint(),
+                            custom_size: Some(Vec2::splat(22.0)),
+                            ..default()
+                        }
+                    } else {
+                        Sprite::from_color(Color::srgb(0.5, 0.9, 0.3), Vec2::splat(16.0))
+                    };
+
                     commands.spawn((
                         Enemy {
                             name: format!("미니 {}", enemy.name),
@@ -417,7 +487,7 @@ pub fn enemy_death_and_affix_system(
                             is_boss: false,
                         },
                         Collider2d::new(18.0, 18.0),
-                        Sprite::from_color(Color::srgb(0.5, 0.9, 0.3), Vec2::splat(16.0)),
+                        mini_sprite,
                         Transform::from_xyz(pos.x + offset_x, pos.y, 1.8),
                     ));
                 }
@@ -443,6 +513,16 @@ pub fn enemy_death_and_affix_system(
 
             // 5. 보석 드랍 (황금 몬스터는 무조건 루비!)
             if enemy.affix == MonsterAffix::Golden {
+                let ruby_sprite = if let Some(ref ruby_img) = images.gem_ruby {
+                    Sprite {
+                        image: ruby_img.clone(),
+                        custom_size: Some(Vec2::splat(18.0)),
+                        ..default()
+                    }
+                } else {
+                    Sprite::from_color(Color::srgb(1.0, 0.15, 0.35), Vec2::splat(14.0))
+                };
+
                 commands.spawn((
                     ExpGem {
                         value: 30.0,
@@ -450,7 +530,7 @@ pub fn enemy_death_and_affix_system(
                         is_attracted: false,
                     },
                     Collider2d::new(16.0, 16.0),
-                    Sprite::from_color(Color::srgb(1.0, 0.15, 0.35), Vec2::splat(14.0)),
+                    ruby_sprite,
                     Transform::from_xyz(pos.x, pos.y, 1.5),
                 ));
             } else if rng.gen_bool(0.85) {

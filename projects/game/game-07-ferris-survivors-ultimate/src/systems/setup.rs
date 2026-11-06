@@ -44,9 +44,9 @@ pub fn setup_game(
     };
     commands.insert_resource(image_assets.clone());
 
-    // 4. 페리스 스프라이트 아틀라스 (8프레임)
+    // 4. 페리스 스프라이트 아틀라스 (128x64: 셀 32x32, 4열 2행 = 8프레임)
     let ferris_image = asset_server.load("sprites/ferris_sheet.png");
-    let layout = TextureAtlasLayout::from_grid(UVec2::new(32, 32), 8, 1, None, None);
+    let layout = TextureAtlasLayout::from_grid(UVec2::splat(32), 4, 2, None, None);
     let ferris_layout = texture_atlas_layouts.add(layout);
 
     commands.insert_resource(FerrisSpriteAssets {
@@ -68,14 +68,26 @@ pub fn setup_game(
 
     let font = asset_server.load("fonts/malgun.ttf");
 
-    // 7. 아레나 바닥 타일맵 배경 (어두운 던전 석재 격자 배경)
-    commands.spawn((
-        Sprite::from_color(
-            Color::srgba(0.08, 0.09, 0.15, 0.95),
-            Vec2::new(920.0, 560.0),
-        ),
-        Transform::from_xyz(0.0, 0.0, 0.0),
-    ));
+    // 7. 아레나 바닥 타일맵 배경 (어두운 던전 석재 텍스처)
+    if let Some(ref floor_img) = image_assets.arena_floor {
+        commands.spawn((
+            Sprite {
+                image: floor_img.clone(),
+                custom_size: Some(Vec2::new(920.0, 560.0)),
+                color: Color::srgba(0.8, 0.85, 0.95, 0.9),
+                ..default()
+            },
+            Transform::from_xyz(0.0, 0.0, 0.0),
+        ));
+    } else {
+        commands.spawn((
+            Sprite::from_color(
+                Color::srgba(0.08, 0.09, 0.15, 0.95),
+                Vec2::new(920.0, 560.0),
+            ),
+            Transform::from_xyz(0.0, 0.0, 0.0),
+        ));
+    }
 
     // 바닥 테두리 네온 라인
     commands.spawn((
