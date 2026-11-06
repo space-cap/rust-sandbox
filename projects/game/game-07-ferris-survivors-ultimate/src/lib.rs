@@ -2,7 +2,11 @@ pub mod components;
 pub mod systems;
 
 use bevy::prelude::*;
-use components::{AppState, CameraShake, HitstopTimer};
+use components::{
+    AppState, AudioSettings, BestiaryBrowserState, BossIntroTimer, BossManager, CameraShake,
+    EnemySpawnTimer, GameRecord, HitstopTimer, ImageAssets, MonsterBestiary, SurvivalStats,
+    UpgradeChoices, WeaponDamageStats,
+};
 
 /// 히트스톱 중이 아닐 때만 true를 반환하는 런 조건
 pub fn not_in_hitstop(hitstop: Res<HitstopTimer>) -> bool {
@@ -17,6 +21,17 @@ impl Plugin for FerrisSurvivorsUltimatePlugin {
         app.init_state::<AppState>()
             .init_resource::<CameraShake>()
             .init_resource::<HitstopTimer>()
+            .init_resource::<SurvivalStats>()
+            .init_resource::<MonsterBestiary>()
+            .init_resource::<BossManager>()
+            .init_resource::<UpgradeChoices>()
+            .init_resource::<WeaponDamageStats>()
+            .init_resource::<BestiaryBrowserState>()
+            .init_resource::<BossIntroTimer>()
+            .init_resource::<AudioSettings>()
+            .init_resource::<ImageAssets>()
+            .insert_resource(EnemySpawnTimer(Timer::from_seconds(0.9, TimerMode::Repeating)))
+            .insert_resource(GameRecord::load_or_default("assets/save/ultimate_records.json"))
             .add_systems(Startup, systems::setup::setup_game)
             // -------------------------------------------------------------
             // 1. 타이틀 씬 (Title Scene)

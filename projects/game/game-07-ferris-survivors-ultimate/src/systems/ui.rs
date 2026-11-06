@@ -129,7 +129,7 @@ pub fn setup_title_scene(
     mut commands: Commands,
     asset_server: Res<AssetServer>,
     images: Option<Res<ImageAssets>>,
-    record: Res<GameRecord>,
+    record: Option<Res<GameRecord>>,
 ) {
     let font = asset_server.load("fonts/malgun.ttf");
 
@@ -175,11 +175,19 @@ pub fn setup_title_scene(
     ));
 
     // 하단 최고 기록 뱃지
-    let best_mins = (record.best_survival_time_sec as u32) / 60;
-    let best_secs = (record.best_survival_time_sec as u32) % 60;
+    let (best_mins, best_secs, max_kills, discovered_count) = if let Some(ref rec) = record {
+        (
+            (rec.best_survival_time_sec as u32) / 60,
+            (rec.best_survival_time_sec as u32) % 60,
+            rec.max_kills,
+            rec.discovered_monsters_count,
+        )
+    } else {
+        (0, 0, 0, 0)
+    };
     let badge_text = format!(
         "🏆 최고 기록: {:02}:{:02} | 최다 처치: {}마리 | 누적 도감 등록: {}/100종",
-        best_mins, best_secs, record.max_kills, record.discovered_monsters_count
+        best_mins, best_secs, max_kills, discovered_count
     );
 
     commands.spawn((
@@ -240,6 +248,16 @@ pub fn setup_bestiary_scene(
     bestiary: Res<MonsterBestiary>,
     browser: Res<BestiaryBrowserState>,
 ) {
+    render_bestiary_card(&mut commands, &asset_server, images.as_deref(), &bestiary, &browser);
+}
+
+pub fn render_bestiary_card(
+    commands: &mut Commands,
+    asset_server: &AssetServer,
+    images: Option<&ImageAssets>,
+    bestiary: &MonsterBestiary,
+    browser: &BestiaryBrowserState,
+) {
     let font = asset_server.load("fonts/malgun.ttf");
 
     commands.spawn((
@@ -277,7 +295,7 @@ pub fn setup_bestiary_scene(
 
     // 좌측: 몬스터 스프라이트 렌더링
     if is_discovered {
-        let monster_img = if let Some(ref img_res) = images {
+        let monster_img = if let Some(img_res) = images {
             match archetype {
                 MonsterArchetype::Slime | MonsterArchetype::Spider | MonsterArchetype::Mimic => {
                     img_res.enemy_slime.clone()
@@ -433,7 +451,13 @@ pub fn bestiary_input_system(
         for entity in query.iter() {
             commands.entity(entity).despawn();
         }
-        setup_bestiary_scene(commands, asset_server, images, bestiary, browser.into());
+        render_bestiary_card(
+            &mut commands,
+            &asset_server,
+            images.as_deref(),
+            &bestiary,
+            &browser,
+        );
     }
 }
 
