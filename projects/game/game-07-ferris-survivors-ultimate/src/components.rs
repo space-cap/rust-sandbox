@@ -477,6 +477,7 @@ pub struct ImageAssets {
     pub arena_floor: Option<Handle<Image>>,
     pub gem_ruby: Option<Handle<Image>>,
     pub title_banner: Option<Handle<Image>>,
+    pub holy_water: Option<Handle<Image>>,
 }
 
 /// 카메라 쉐이크 리소스

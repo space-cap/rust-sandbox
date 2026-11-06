@@ -41,6 +41,7 @@ pub fn setup_game(
         arena_floor: Some(asset_server.load("images/arena_floor.png")),
         gem_ruby: Some(asset_server.load("images/gem_ruby.png")),
         title_banner: Some(asset_server.load("images/title_banner.png")),
+        holy_water: Some(asset_server.load("images/holy_water.png")),
     };
     commands.insert_resource(image_assets.clone());
 

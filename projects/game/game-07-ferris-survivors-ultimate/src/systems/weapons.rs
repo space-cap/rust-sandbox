@@ -1,7 +1,7 @@
 use bevy::prelude::*;
 use crate::components::{
     CameraShake, Collider2d, Enemy, FloatingDamageText, HolyWaterPool, HomingArrow,
-    OrbitBlade, ParabolicAxe, Particle, Player, PlayerStats, SoundAssets, Velocity,
+    ImageAssets, OrbitBlade, ParabolicAxe, Particle, Player, PlayerStats, SoundAssets, Velocity,
 };
 use rand::Rng;
 use std::f32::consts::PI;
@@ -227,6 +227,7 @@ pub fn holy_water_spawner_and_damage_system(
     mut commands: Commands,
     time: Res<Time>,
     sounds: Res<SoundAssets>,
+    images: Res<ImageAssets>,
     mut player_query: Query<(&Transform, &mut PlayerStats), With<Player>>,
     mut pool_query: Query<(Entity, &Transform, &mut HolyWaterPool)>,
     mut enemy_query: Query<(&Transform, &mut Enemy), Without<Player>>,
@@ -249,6 +250,19 @@ pub fn holy_water_spawner_and_damage_system(
             player_pos + Vec2::new(rng.gen_range(-80.0..80.0), rng.gen_range(-80.0..80.0))
         };
 
+        let pool_sprite = if let Some(ref hw_img) = images.holy_water {
+            Sprite {
+                image: hw_img.clone(),
+                custom_size: Some(Vec2::new(140.0, 140.0)),
+                ..default()
+            }
+        } else {
+            Sprite::from_color(
+                Color::srgba(0.2, 0.7, 1.0, 0.45), // 성수 푸른 오라 장판
+                Vec2::new(130.0, 130.0),
+            )
+        };
+
         commands.spawn((
             HolyWaterPool {
                 lifetime: Timer::from_seconds(4.0, TimerMode::Once),
@@ -256,10 +270,7 @@ pub fn holy_water_spawner_and_damage_system(
                 damage: stats.holy_water_damage,
                 radius: 65.0,
             },
-            Sprite::from_color(
-                Color::srgba(0.2, 0.7, 1.0, 0.45), // 성수 푸른 오라 장판
-                Vec2::new(130.0, 130.0),
-            ),
+            pool_sprite,
             Transform::from_xyz(target_target.x, target_target.y, 0.8),
         ));
 
