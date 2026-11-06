@@ -1,0 +1,17 @@
+[package]
+name = "game-03-space-shooter"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "game_03_space_shooter"
+path = "src/lib.rs"
+
+[[bin]]
+name = "game-03-space-shooter"
+path = "src/main.rs"
+
+[dependencies]
+bevy = "0.20.1"
+rand = "0.8"
+

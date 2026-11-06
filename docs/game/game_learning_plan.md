@@ -76,15 +76,16 @@ flowchart TD
   - [x] 이동 방향에 따른 스프라이트 좌우 반전(`Sprite::flip_x`)
   - [x] 실시간 HUD 텍스트 및 헤드리스(Headless) 단위 테스트 100% 통과
 
-### [Phase 3] 탄막 슈팅 & AABB 충돌 감지 물리 💥
+### [Phase 3] 탄막 슈팅 & AABB 충돌 감지 물리 💥 (✅ 완료 - 2026-11-06)
 - 📄 **이론 가이드**: `03_physics_and_collision.md`
 - 📦 **실습 프로젝트**: `projects/game/game-03-space-shooter`
 - **주요 학습 내용**:
-  - 우주선 플레이어 & 스페이스 배경 구성
-  - 스페이스바 입력 시 레이저 총알(Bullet) 발사 및 화면 밖 자동 소멸(Despawn)
-  - 주기적인 외계 적기(Enemy) 스폰 타이머 시스템 및 난수(`rand`) 위치 분배
-  - 2D AABB(축 정렬 바운딩 박스) 충돌 판정 알고리즘 직접 구현
-  - 총알과 적기 충돌 시 폭발 제거 및 글로벌 점수 자원(`Resource<Score>`) 누적
+  - [x] 우주선 플레이어 & 패럴랙스 무한 별무리(Starfield) 배경 구성
+  - [x] 스페이스바 입력 시 트윈 레이저(LaserBullet) 발사 및 화면 밖 자동 소멸(Despawn)
+  - [x] 주기적인 외계 적기(Enemy) 스폰 타이머 시스템 및 난수(`rand`) 위치 분배
+  - [x] 2D AABB(축 정렬 바운딩 박스) 충돌 판정 알고리즘 직접 구현
+  - [x] 총알과 적기 충돌 시 폭발 제거 및 글로벌 점수/쉴드 자원(`Resource<GameState>`) 누적
+  - [x] 중복 소멸 방지 안전 패턴(`HashSet<Entity>`) 및 헤드리스 단위 테스트 100% 통과
 
 ### [Phase 4] 게임 라이프사이클(States), BGM & UI HUD 🎵
 - 📄 **이론 가이드**: `04_states_sound_and_ui.md`
@@ -141,7 +142,7 @@ rust-sandbox/
     └── game/                # 📂 [NEW] Bevy 게임 실습 프로젝트 모음
         ├── game-01-bevy-basics/       # ✅ Phase 1 완료 (ECS 2D 기초, 이동, HUD, 테스트)
         ├── game-02-sprite-animation/  # ✅ Phase 2 완료 (스프라이트 시트, 아틀라스, 프레임 애니메이션)
-        ├── game-03-space-shooter/     # 🚀 Phase 3 예정
+        ├── game-03-space-shooter/     # ✅ Phase 3 완료 (우주 탄막 슈팅, AABB 물리 충돌, 별무리 배경)
         ├── game-04-breakout-game/     # 🚀 Phase 4 예정
         ├── game-05-particle-effects/  # 🚀 Phase 5 예정
         └── game-06-survival-arena/    # 🚀 Phase 6 예정

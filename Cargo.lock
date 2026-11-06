@@ -4711,6 +4711,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "game-03-space-shooter"
+version = "0.1.0"
+dependencies = [
+ "bevy",
+ "rand 0.8.8",
+]
+
+[[package]]
 name = "gdk"
 version = "0.18.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
