@@ -119,6 +119,18 @@ flowchart TD
   - [x] 생존 시간 타이머, 처치 수 집계 및 `serde_json` 기반 로컬 최고 기록 영구 저장/복원
   - [x] 4대 상태 머신(`Menu` $\leftrightarrow$ `Playing` $\leftrightarrow$ `LevelUp` $\leftrightarrow$ `GameOver`) 및 헤드리스 단위 테스트 100% 통과
 
+### [Phase 7] 고도화 상업 인디 게임 실전: 100종 몬스터 도감 & 보스 레이드 👑 (✅ 완료 - 2026-11-06)
+- 📄 **이론 가이드**: `07_advanced_game_architecture.md`
+- 📦 **실습 프로젝트**: `projects/game/game-07-ferris-survivors-ultimate`
+- **주요 학습 내용**:
+  - [x] 제미나이(Gemini) AI 고품질 게임 스프라이트, 텍스처, 타이틀 배너 8종 생성 연동
+  - [x] 10대 기본 종족 $\times$ 5대 원소 $\times$ 8대 Affix = 400종 절차적 몬스터 생성 및 인게임 도감(Bestiary)
+  - [x] 플레이어 고속 대시 회피, 무적 프레임(i-frame) 및 잔상(Ghost Trail) 렌더링
+  - [x] 4종 자동 무기 아스널 (공전 칼날, 유도 화살, 성수 지면 불꽃 장판, 관통 회전 도끼)
+  - [x] 머리 위 실시간 플로팅 데미지 텍스트(FCT) 및 15% 치명타(CRIT!) 팝업 연출
+  - [x] 90초 타이탄 에픽 보스 레이드 (상단 거대 보스 체력바 UI & 8방향 방사형 탄막 패턴)
+  - [x] 몬스터 도감 수집 통계 및 로컬 영구 세이브, 헤드리스 단위 테스트 100% 통과
+
 ---
 
 ## 3. 디렉토리 구조
@@ -129,24 +141,26 @@ rust-sandbox/
 │   ├── backend/             # 📂 완성된 백엔드 마스터 가이드 (Phase 1 ~ 6)
 │   ├── frontend/            # 📂 완성된 프론트엔드 마스터 가이드 (Phase 1 ~ 6)
 │   ├── desktop/             # 📂 완성된 데스크톱 GUI 마스터 가이드 (Phase 1 ~ 6)
-│   └── game/                # 📂 [완성] Bevy 게임 엔진 마스터 가이드 (Phase 1 ~ 6 전 과정 마스터!)
+│   └── game/                # 📂 [완성] Bevy 게임 엔진 마스터 가이드 (Phase 1 ~ 7 전 과정 마스터!)
 │       ├── game_learning_plan.md
 │       ├── 01_bevy_and_ecs_philosophy.md
 │       ├── 02_2d_rendering_and_assets.md
 │       ├── 03_physics_and_collision.md
 │       ├── 04_states_sound_and_ui.md
 │       ├── 05_game_juice_and_effects.md
-│       └── 06_full_survival_game.md
+│       ├── 06_full_survival_game.md
+│       └── 07_advanced_game_architecture.md
 └── projects/
     ├── backend/             # 📂 5대 백엔드 프로젝트
     ├── frontend/            # 📂 6대 프론트엔드 Wasm 프로젝트
     ├── desktop/             # 📂 6대 데스크톱 GUI 프로젝트
-    └── game/                # 📂 [완성] Bevy 게임 실습 프로젝트 모음 (Phase 1 ~ 6 전 프로젝트 완비)
+    └── game/                # 📂 [완성] Bevy 게임 실습 프로젝트 모음 (Phase 1 ~ 7 완비)
         ├── game-01-bevy-basics/       # ✅ Phase 1 완료 (ECS 2D 기초, 이동, HUD, 테스트)
         ├── game-02-sprite-animation/  # ✅ Phase 2 완료 (스프라이트 시트, 아틀라스, 프레임 애니메이션)
         ├── game-03-space-shooter/     # ✅ Phase 3 완료 (우주 탄막 슈팅, AABB 물리 충돌, 별무리 배경)
         ├── game-04-breakout-game/     # ✅ Phase 4 완료 (벽돌깨기, 게임 상태 머신, 가변 반사각, 8-bit 오디오)
         ├── game-05-particle-effects/  # ✅ Phase 5 완료 (파티클 버스트, 트라우마 카메라 쉐이크, 히트스톱, 기즈모)
-        └── game-06-survival-arena/    # ✅ Phase 6 완료 (뱀파이어 서바이벌 류 종합 실전, 자동 무기, 레벨업, 영구 저장)
+        ├── game-06-survival-arena/    # ✅ Phase 6 완료 (뱀파이어 서바이벌 류 종합 실전, 자동 무기, 레벨업, 영구 저장)
+        └── game-07-ferris-survivors-ultimate/ # ✅ Phase 7 완료 (100종 몬스터 도감, 대시 무적기, 4종 무기, 보스 레이드)
 ```
 

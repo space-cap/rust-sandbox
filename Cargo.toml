@@ -23,5 +23,6 @@ members = [
     "projects/game/game-04-breakout-game",
     "projects/game/game-05-particle-effects",
     "projects/game/game-06-survival-arena",
+    "projects/game/game-07-ferris-survivors-ultimate",
 ]
 resolver = "2"
