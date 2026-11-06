@@ -1,0 +1,16 @@
+[package]
+name = "game-02-sprite-animation"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "game_02_sprite_animation"
+path = "src/lib.rs"
+
+[[bin]]
+name = "game-02-sprite-animation"
+path = "src/main.rs"
+
+[dependencies]
+bevy = "0.20.1"
+

@@ -17,5 +17,7 @@ members = [
     "projects/desktop/desktop-04-tauri-basics",
     "projects/desktop/desktop-05-tauri-tray-tool",
     "projects/desktop/desktop-06-packaging-updater",
+    "projects/game/game-01-bevy-basics",
+    "projects/game/game-02-sprite-animation",
 ]
 resolver = "2"

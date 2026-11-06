@@ -94,3 +94,12 @@
   - [04장. 엔터프라이즈급 인증(JWT), 보안, 그리고 미들웨어](backend/04_auth_and_middleware.md)
   - [05장. 실시간 양방향 통신: WebSocket & Tokio Broadcast](backend/05_realtime_websocket.md)
   - [06장. 벤치마크, 프로파일링, 그리고 초경량 Docker 배포](backend/06_benchmark_and_docker.md)
+
+### 🎮 차세대 게임 엔진 Bevy 마스터 (ECS & 2D 인터랙티브)
+- [로드맵: Rust Bevy 게임 개발 마스터 플랜](game/game_learning_plan.md)
+  - [01장. Bevy 아키텍처 & 왜 객체지향(OOP)을 버리고 ECS로 가는가?](game/01_bevy_and_ecs_philosophy.md)
+  - [02장. 2D 스프라이트 렌더링, 텍스처 아틀라스 & 애니메이션](game/02_2d_rendering_and_assets.md)
+  - [03장. 탄막 슈팅 & AABB 충돌 감지 물리](game/03_physics_and_collision.md)
+  - [04장. 게임 라이프사이클(States), BGM & UI HUD](game/04_states_sound_and_ui.md)
+  - [05장. 파티클 폭발 이펙트 & 카메라 쉐이크 (Juice & Polish)](game/05_game_juice_and_effects.md)
+  - [06장. 종합 실전: 2D 서바이벌 아레나 (Vampire Survivor 류)](game/06_full_survival_game.md)

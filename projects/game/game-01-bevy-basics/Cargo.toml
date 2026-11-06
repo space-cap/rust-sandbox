@@ -1,0 +1,15 @@
+[package]
+name = "game-01-bevy-basics"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "game_01_bevy_basics"
+path = "src/lib.rs"
+
+[[bin]]
+name = "game-01-bevy-basics"
+path = "src/main.rs"
+
+[dependencies]
+bevy = "0.20.1"
