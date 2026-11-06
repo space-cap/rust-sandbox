@@ -316,7 +316,7 @@ pub fn enemy_death_and_affix_system(
     mut bestiary: ResMut<MonsterBestiary>,
     mut shake: ResMut<CameraShake>,
     mut boss_manager: ResMut<BossManager>,
-    query: Query<(Entity, &Transform, &Enemy)>,
+    query: Query<(Entity, &Transform, &Enemy), Without<BossHpBarRoot>>,
     mut bar_root_query: Query<&mut Transform, (With<BossHpBarRoot>, Without<Enemy>)>,
 ) {
     let mut rng = rand::thread_rng();

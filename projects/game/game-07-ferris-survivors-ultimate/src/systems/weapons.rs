@@ -135,7 +135,7 @@ pub fn homing_arrow_movement_system(
     sounds: Res<SoundAssets>,
     mut shake: ResMut<CameraShake>,
     asset_server: Res<AssetServer>,
-    mut arrow_query: Query<(Entity, &mut Transform, &mut HomingArrow, &Velocity, &Collider2d)>,
+    mut arrow_query: Query<(Entity, &mut Transform, &mut HomingArrow, &Velocity, &Collider2d), Without<Enemy>>,
     mut enemy_query: Query<(Entity, &Transform, &Collider2d, &mut Enemy), Without<HomingArrow>>,
 ) {
     let font = asset_server.load("fonts/malgun.ttf");
@@ -228,9 +228,8 @@ pub fn holy_water_spawner_and_damage_system(
     time: Res<Time>,
     sounds: Res<SoundAssets>,
     mut player_query: Query<(&Transform, &mut PlayerStats), With<Player>>,
-    enemy_query: Query<&Transform, With<Enemy>>,
     mut pool_query: Query<(Entity, &Transform, &mut HolyWaterPool)>,
-    mut enemy_damage_query: Query<(&Transform, &mut Enemy), Without<Player>>,
+    mut enemy_query: Query<(&Transform, &mut Enemy), Without<Player>>,
 ) {
     let Ok((player_tf, mut stats)) = player_query.single_mut() else {
         return;
@@ -243,7 +242,7 @@ pub fn holy_water_spawner_and_damage_system(
     // 1. 성수 투척 스폰
     if stats.holy_water_cooldown.is_finished() {
         // 적이 있으면 적 근처, 없으면 플레이어 주변에 투척
-        let target_target = if let Some(enemy_tf) = enemy_query.iter().next() {
+        let target_target = if let Some((enemy_tf, _)) = enemy_query.iter().next() {
             let offset = Vec2::new(rng.gen_range(-40.0..40.0), rng.gen_range(-40.0..40.0));
             enemy_tf.translation.truncate() + offset
         } else {
@@ -285,7 +284,7 @@ pub fn holy_water_spawner_and_damage_system(
         if pool.tick_timer.is_finished() {
             let pool_pos = pool_tf.translation.truncate();
 
-            for (enemy_tf, mut enemy) in enemy_damage_query.iter_mut() {
+            for (enemy_tf, mut enemy) in enemy_query.iter_mut() {
                 let dist = enemy_tf.translation.truncate().distance(pool_pos);
                 if dist <= pool.radius {
                     enemy.health -= pool.damage;
@@ -313,8 +312,8 @@ pub fn parabolic_axe_system(
     time: Res<Time>,
     sounds: Res<SoundAssets>,
     mut player_query: Query<(&Transform, &mut PlayerStats), With<Player>>,
-    mut axe_query: Query<(Entity, &mut Transform, &mut ParabolicAxe, &Collider2d)>,
-    mut enemy_query: Query<(&Transform, &Collider2d, &mut Enemy), Without<Player>>,
+    mut axe_query: Query<(Entity, &mut Transform, &mut ParabolicAxe, &Collider2d), Without<Player>>,
+    mut enemy_query: Query<(&Transform, &Collider2d, &mut Enemy), (Without<Player>, Without<ParabolicAxe>)>,
 ) {
     let Ok((player_tf, mut stats)) = player_query.single_mut() else {
         return;

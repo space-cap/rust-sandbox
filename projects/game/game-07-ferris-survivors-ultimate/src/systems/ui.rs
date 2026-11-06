@@ -18,71 +18,67 @@ pub fn hud_and_boss_bar_system(
     bestiary: Res<MonsterBestiary>,
     player_query: Query<&PlayerStats, With<Player>>,
     boss_query: Query<&Enemy, With<BossTitan>>,
-    mut health_query: Query<&mut Text2d, (With<HudHealthText>, Without<HudExpText>, Without<HudDashText>, Without<HudTimeKillsText>, Without<BossHpBarText>)>,
-    mut exp_query: Query<&mut Text2d, (With<HudExpText>, Without<HudHealthText>, Without<HudDashText>, Without<HudTimeKillsText>, Without<BossHpBarText>)>,
-    mut dash_query: Query<&mut Text2d, (With<HudDashText>, Without<HudHealthText>, Without<HudExpText>, Without<HudTimeKillsText>, Without<BossHpBarText>)>,
-    mut time_query: Query<&mut Text2d, (With<HudTimeKillsText>, Without<HudHealthText>, Without<HudExpText>, Without<HudDashText>, Without<BossHpBarText>)>,
     mut boss_bar_fill: Query<&mut Sprite, With<BossHpBarFill>>,
-    mut boss_bar_text: Query<&mut Text2d, (With<BossHpBarText>, Without<HudHealthText>, Without<HudExpText>, Without<HudDashText>, Without<HudTimeKillsText>)>,
+    mut text_query: Query<(
+        &mut Text2d,
+        Option<&HudHealthText>,
+        Option<&HudExpText>,
+        Option<&HudDashText>,
+        Option<&HudTimeKillsText>,
+        Option<&BossHpBarText>,
+    )>,
 ) {
     let Ok(player_stats) = player_query.single() else {
         return;
     };
 
-    // 1. 체력 게이지
     let hp_ratio = (player_stats.health / player_stats.max_health).clamp(0.0, 1.0);
     let filled_hp = (hp_ratio * 10.0).round() as usize;
     let hp_bar = format!("[{}{}]", "#".repeat(filled_hp), "-".repeat(10 - filled_hp));
-    for mut text in health_query.iter_mut() {
-        text.0 = format!(
-            "체력: {:.0}/{:.0} {}",
-            player_stats.health, player_stats.max_health, hp_bar
-        );
-    }
 
-    // 2. EXP 게이지
     let exp_ratio = (player_stats.exp / player_stats.next_level_exp).clamp(0.0, 1.0);
     let filled_exp = (exp_ratio * 10.0).round() as usize;
     let exp_bar = format!("[{}{}]", "#".repeat(filled_exp), "-".repeat(10 - filled_exp));
-    for mut text in exp_query.iter_mut() {
-        text.0 = format!(
-            "Lv.{} EXP: {:.0}/{:.0} {}",
-            player_stats.level, player_stats.exp, player_stats.next_level_exp, exp_bar
-        );
-    }
 
-    // 3. 대시 쿨다운 표시
-    for mut text in dash_query.iter_mut() {
-        if player_stats.dash_cooldown.is_finished() {
-            text.0 = "[Shift 대시: READY]".to_string();
-        } else {
-            let remain = player_stats.dash_cooldown.remaining_secs();
-            text.0 = format!("[대시: {:.1}s]", remain);
-        }
-    }
+    let dash_str = if player_stats.dash_cooldown.is_finished() {
+        "[Shift 대시: READY]".to_string()
+    } else {
+        format!("[대시: {:.1}s]", player_stats.dash_cooldown.remaining_secs())
+    };
 
-    // 4. 생존 시간 및 도감 수집 수
     let total_secs = stats.survival_time as u32;
     let mins = total_secs / 60;
     let secs = total_secs % 60;
-    for mut text in time_query.iter_mut() {
-        text.0 = format!(
-            "생존: {:02}:{:02} | 처치: {} (도감: {}/100종)",
-            mins, secs, stats.kills, bestiary.discovered_names.len()
-        );
+    let time_str = format!(
+        "생존: {:02}:{:02} | 처치: {} (도감: {}/100종)",
+        mins, secs, stats.kills, bestiary.discovered_names.len()
+    );
+
+    let boss_info = boss_query.single().ok().map(|b| {
+        let ratio = (b.health / b.max_health).clamp(0.0, 1.0);
+        let text = format!("⚠️ BOSS: 메모리 리크 타이탄 (HP: {:.0} / {:.0})", b.health.max(0.0), b.max_health);
+        (ratio, text)
+    });
+
+    if let Some((ratio, _)) = boss_info.as_ref() {
+        for mut sprite in boss_bar_fill.iter_mut() {
+            sprite.custom_size = Some(Vec2::new(416.0 * ratio, 16.0));
+        }
     }
 
-    // 5. 보스 체력바 게이지 갱신
-    if let Ok(boss_enemy) = boss_query.single() {
-        let boss_ratio = (boss_enemy.health / boss_enemy.max_health).clamp(0.0, 1.0);
-        for mut sprite in boss_bar_fill.iter_mut() {
-            sprite.custom_size = Some(Vec2::new(416.0 * boss_ratio, 16.0));
-        }
-        for mut text in boss_bar_text.iter_mut() {
-            text.0 = format!(
-                "⚠️ BOSS: 메모리 리크 타이탄 (HP: {:.0} / {:.0})",
-                boss_enemy.health.max(0.0), boss_enemy.max_health
-            );
+    for (mut text, is_hp, is_exp, is_dash, is_time, is_boss) in text_query.iter_mut() {
+        if is_hp.is_some() {
+            text.0 = format!("체력: {:.0}/{:.0} {}", player_stats.health, player_stats.max_health, hp_bar);
+        } else if is_exp.is_some() {
+            text.0 = format!("Lv.{} EXP: {:.0}/{:.0} {}", player_stats.level, player_stats.exp, player_stats.next_level_exp, exp_bar);
+        } else if is_dash.is_some() {
+            text.0 = dash_str.clone();
+        } else if is_time.is_some() {
+            text.0 = time_str.clone();
+        } else if is_boss.is_some() {
+            if let Some((_, b_text)) = boss_info.as_ref() {
+                text.0 = b_text.clone();
+            }
         }
     }
 }
